@@ -4,14 +4,13 @@ import React from 'react'
 //     return <h1>Hello World</h1>
 // }
 
-const Greet = props => {
-const { name, heroName} = props
+export const Greet = props => {
+    const {name, heroName} = props
     return (
         <div>
-            <h1>Hello {name} {heroName}</h1>
+            <h1>Hello re {name} {props.heroName}</h1>
+            {props.children}
         </div>
     )
-
-
 }
-export default Greet;
+// export default Greet;
