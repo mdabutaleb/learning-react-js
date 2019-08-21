@@ -6,21 +6,39 @@ import Welcome from './components/Welcome'
 import Hello from './components/Hello'
 import Message from "./components/Message";
 import Counter from "./components/Counter";
+import FunctionClick from "./components/FunctionClick";
+import ClassClick from "./components/ClassClick";
+import ParentComponent from "./components/ParentComponent";
 
 function App() {
     return (
         <div className="App">
-            <Counter/>
-            <Message/>
-            <Hello/>
+            <ParentComponent/>
+            {/*<ClassClick/>*/}
+            {/*<FunctionClick/>*/}
+            {/*<Counter/>*/}
+            {/*<Message/>*/}
+            {/*<Hello/>*/}
 
-            <Welcome name="Sumon" heroname="Batman"/>
-            <Welcome name="Mahmud" heroName="Tom ">
-                <p>This is the children of welcome </p>
-            </Welcome>
+            {/*<Welcome name="Sumon" heroname="Batman"/>*/}
+            {/*<Welcome name="Mahmud" heroName="Tom ">*/}
+            {/*    <p>This is the children of welcome </p>*/}
+            {/*</Welcome>*/}
+            {/*
+             <Counter/>
+             <Message/>
+
             <Greet name="Sumon" heroname="Batman">
                 <p>This is the child component of Greet</p>
             </Greet>
+
+
+            <Welcome name="Sumon" heroname="Batman"/>
+            <Hello/>
+            */
+            }
+            {/*<Greet name="Mahmud" heroName="Tom Cruis"/>*/}
+            {/*<Welcome name="Mahmud" heroName="Tom C "/>*/}
         </div>
     );
 }
