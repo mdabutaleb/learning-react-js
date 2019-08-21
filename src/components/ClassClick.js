@@ -2,14 +2,26 @@ import React, {Component} from 'react'
 
 class ClassClick extends Component {
 
+    constructor() {
+        super()
+        this.state = {
+            message: 'Hello'
+        }
+
+    }
+
     clickHandler() {
-        console.log('Class button clicked !')
+        this.setState({
+            message: 'Good Bye !'
+        })
     }
 
     render() {
         return (
             <div>
-                <button onClick={this.clickHandler}>Click Me</button>
+                <p>{this.state.message}</p>
+                {/*<button onClick={this.clickHandler.bind(this)}>CLick me</button>*/}
+                <button onClick={() => this.clickHandler()}>Click Me</button>
             </div>
         );
     }

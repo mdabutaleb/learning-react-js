@@ -13,7 +13,7 @@ function App() {
     return (
         <div className="App">
             <ClassClick/>
-            <FunctionClick/>
+            {/*<FunctionClick/>*/}
             {/*
              <Counter/>
              <Message/>
@@ -27,7 +27,7 @@ function App() {
             */
             }
             {/*<Greet name="Mahmud" heroName="Tom Cruis"/>*/}
-            <Welcome name="Mahmud" heroName="Tom C "/>
+            {/*<Welcome name="Mahmud" heroName="Tom C "/>*/}
         </div>
     );
 }
