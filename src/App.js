@@ -24,7 +24,7 @@ function App() {
             */
             }
             {/*<Greet name="Mahmud" heroName="Tom Cruis"/>*/}
-            <Welcome name="Mahmud" heroName="Tom "/>
+            <Welcome name="Mahmud" heroName="Tom C "/>
         </div>
     );
 }
