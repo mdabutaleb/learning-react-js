@@ -1,27 +1,30 @@
-import React, {Component} from 'react'
+import React, {Component} from "react";
 
 class Counter extends Component {
-    constructor() {
-        super()
+    constructor(props) {
+        super();
         this.state = {
-            count: 0
+            Counter: 0,
         }
     }
 
     increment() {
+        // it will not run 5 times
         // this.setState({
-        //     count: this.state.count + 1
+        //     Counter: this.state.Counter + 1,
         // }, () => {
-        //     console.log('this is callback value', this.state.count)
+        //     console.log(this.state.Counter)
         // })
-        // console.log(this.state.count)
+        // console.log(this.state.Counter)
 
         this.setState((prevState) => ({
-            count: prevState.count + 1
-        }))
+            Counter: prevState.Counter + 1
+        }), () => {
+            console.log(this.state.Counter)
+        });
     }
 
-    incrementFiveTimes() {
+    incrementFiveTimes(){
         this.increment();
         this.increment();
         this.increment();
@@ -32,8 +35,7 @@ class Counter extends Component {
     render() {
         return (
             <div>
-                Count - {this.state.count}
-                <br/>
+                <div>Count - {this.state.Counter}</div>
                 <button onClick={() => this.incrementFiveTimes()}>Increment</button>
             </div>
         );
