@@ -12,13 +12,14 @@ import EventBindingPractice from "./Components/EventBindingPractice";
 import ParentComponent from "./Components/ParentComponent";
 import HomePage from "./Components/practice/HomePage";
 import UserGreeting from "./Components/UserGreeting";
+import NameList from "./Components/nameList";
 
 
 function App() {
     return (
         <div className="App">
-
-            <UserGreeting/>
+            <NameList/>
+            {/*<UserGreeting/>*/}
 
             {/*<ParentComponent/>*/}
 
