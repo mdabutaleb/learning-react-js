@@ -73,12 +73,35 @@ import React from "react";
 
 // functional component with child component
 
+// const Hello = props => {
+//     return (
+//         <div>
+//             <h1>Hello {props.name}, {props.branch}</h1>
+//             {props.children}
+//         </div>
+//     )
+// }
+
+
+// destructing property or parameter
+// const Hello = ({name, branch}) => {
+//     return (
+//         <div>
+//             <h1>Hello {name}, {branch}</h1>
+//         </div>
+//     )
+// }
+
+
+// destructing in the body
 const Hello = props => {
+    const {name, branch} = props;
     return (
         <div>
-            <h1>Hello {props.name}, {props.branch}</h1>
-            {props.children}
+            <h2>Name is: {name}, {branch}</h2>
         </div>
     )
+
 }
+
 export default Hello;

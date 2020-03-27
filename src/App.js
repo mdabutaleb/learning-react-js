@@ -1,46 +1,57 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import {Greet} from './components/Greet'
-import Welcome from './components/Welcome'
-import Hello from './components/Hello'
-import Message from "./components/Message";
-import Counter from "./components/Counter";
-import FunctionClick from "./components/FunctionClick";
-import ClassClick from "./components/ClassClick";
-import ParentComponent from "./components/ParentComponent";
-import UserGreeting from "./components/UserGreeting";
+import Hello from "./Components/Hello";
+import Welcome from "./Components/Welcome";
+import Message from "./Components/Message";
+import Counter from "./Components/Counter";
+import FunctionClick from "./Components/FunctionClick";
+import ClassClick from "./Components/ClassClick";
+import EventBinding from "./Components/EventBinding";
+import EventBindingPractice from "./Components/EventBindingPractice";
+import ParentComponent from "./Components/ParentComponent";
+import HomePage from "./Components/practice/HomePage";
+import UserGreeting from "./Components/UserGreeting";
+
 
 function App() {
     return (
         <div className="App">
+
             <UserGreeting/>
+
             {/*<ParentComponent/>*/}
-            {/*<ClassClick/>*/}
+
+            {/*<HomePage/>*/}
+
+            {/*<EventBindingPractice/>*/}
+            {/*<EventBinding/>*/}
             {/*<FunctionClick/>*/}
+            {/*<ClassClick/>*/}
+
+
             {/*<Counter/>*/}
+
+
             {/*<Message/>*/}
-            {/*<Hello/>*/}
-
-            {/*<Welcome name="Sumon" heroname="Batman"/>*/}
-            {/*<Welcome name="Mahmud" heroName="Tom ">*/}
-            {/*    <p>This is the children of welcome </p>*/}
-            {/*</Welcome>*/}
-            {/*
-             <Counter/>
-             <Message/>
-
-            <Greet name="Sumon" heroname="Batman">
-                <p>This is the child component of Greet</p>
-            </Greet>
 
 
-            <Welcome name="Sumon" heroname="Batman"/>
-            <Hello/>
-            */
-            }
-            {/*<Greet name="Mahmud" heroName="Tom Cruis"/>*/}
-            {/*<Welcome name="Mahmud" heroName="Tom C "/>*/}
+            {/*Functional component*/}
+            {/*<Hello name="Google" branch="Canada">*/}
+            {/*    <p>THis is a paragraph need to incorporate in the main component</p>*/}
+            {/*</Hello>*/}
+            {/*<Hello name="Yahoo" branch="India">*/}
+            {/*    <button>Action</button>*/}
+            {/*</Hello>*/}
+            {/*<Hello name="Bing" branch="Dhaka">*/}
+            {/*    <h3>Something</h3>*/}
+            {/*</Hello>*/}
+
+
+            {/*Class components*/}
+            {/*<Welcome name="Google" branch="USA"/>*/}
+            {/*<Welcome name="Yahoo" branch="India"/>*/}
+            {/*<Welcome name="BIng" branch="Bangladesh"/>*/}
         </div>
     );
 }
