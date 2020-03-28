@@ -17,15 +17,15 @@ import './App.css';
 // import "./appStyles.css";
 // import style from "./appStyles.module.css";
 // import Form from "./Components/Form";
-import LifeCycleA from "./Components/LifeCycleA";
+// import LifeCycleA from "./Components/LifeCycleA";
 import FragmentDemo from "./Components/FragmentDemo";
 
 function App() {
     return (
         <div className="App">
+            <FragmentDemo/>
 
-
-            <LifeCycleA/>
+            {/*<LifeCycleA/>*/}
 
             {/*<Form/>*/}
 
