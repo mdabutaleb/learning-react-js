@@ -17,14 +17,19 @@ import Stylesheet from "./Components/Stylesheet";
 import Inline from "./Components/inline";
 import "./appStyles.css";
 import style from "./appStyles.module.css";
+import Form from "./Components/Form";
 
 function App() {
     return (
         <div className="App">
-            <h1 className="success">Success</h1>
-            <h2 className={style.error}>Error</h2>
-            <Inline/>
-            <Stylesheet primary={true}/>
+
+            <Form/>
+
+
+            {/*<h1 className="success">Success</h1>*/}
+            {/*<h2 className={style.error}>Error</h2>*/}
+            {/*<Inline/>*/}
+            {/*<Stylesheet primary={true}/>*/}
             {/*<NameList/>*/}
             {/*<UserGreeting/>*/}
 
