@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import './App.css';
 // import Hello from "./Components/Hello";
 // import Welcome from "./Components/Welcome";
@@ -18,11 +18,13 @@ import './App.css';
 // import style from "./appStyles.module.css";
 // import Form from "./Components/Form";
 import LifeCycleA from "./Components/LifeCycleA";
-// import PracticeCycleA from "./Components/practice/PracticeCycleA";
+import FragmentDemo from "./Components/FragmentDemo";
 
 function App() {
     return (
         <div className="App">
+
+
             <LifeCycleA/>
 
             {/*<Form/>*/}
