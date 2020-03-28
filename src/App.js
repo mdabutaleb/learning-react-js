@@ -1,29 +1,31 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-import Hello from "./Components/Hello";
-import Welcome from "./Components/Welcome";
-import Message from "./Components/Message";
-import Counter from "./Components/Counter";
-import FunctionClick from "./Components/FunctionClick";
-import ClassClick from "./Components/ClassClick";
-import EventBinding from "./Components/EventBinding";
-import EventBindingPractice from "./Components/EventBindingPractice";
-import ParentComponent from "./Components/ParentComponent";
-import HomePage from "./Components/practice/HomePage";
-import UserGreeting from "./Components/UserGreeting";
-import NameList from "./Components/nameList";
-import Stylesheet from "./Components/Stylesheet";
-import Inline from "./Components/inline";
-import "./appStyles.css";
-import style from "./appStyles.module.css";
-import Form from "./Components/Form";
+// import Hello from "./Components/Hello";
+// import Welcome from "./Components/Welcome";
+// import Message from "./Components/Message";
+// import Counter from "./Components/Counter";
+// import FunctionClick from "./Components/FunctionClick";
+// import ClassClick from "./Components/ClassClick";
+// import EventBinding from "./Components/EventBinding";
+// import EventBindingPractice from "./Components/EventBindingPractice";
+// import ParentComponent from "./Components/ParentComponent";
+// import HomePage from "./Components/practice/HomePage";
+// import UserGreeting from "./Components/UserGreeting";
+// import NameList from "./Components/nameList";
+// import Stylesheet from "./Components/Stylesheet";
+// import Inline from "./Components/inline";
+// import "./appStyles.css";
+// import style from "./appStyles.module.css";
+// import Form from "./Components/Form";
+import LifeCycleA from "./Components/LifeCycleA";
+// import PracticeCycleA from "./Components/practice/PracticeCycleA";
 
 function App() {
     return (
         <div className="App">
+            <LifeCycleA/>
 
-            <Form/>
+            {/*<Form/>*/}
 
 
             {/*<h1 className="success">Success</h1>*/}
