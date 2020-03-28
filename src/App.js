@@ -19,11 +19,15 @@ import './App.css';
 // import Form from "./Components/Form";
 // import LifeCycleA from "./Components/LifeCycleA";
 import FragmentDemo from "./Components/FragmentDemo";
+import ParentComp from "./Components/ParentComp";
 
 function App() {
     return (
         <div className="App">
-            <FragmentDemo/>
+            <ParentComp/>
+
+
+            {/*<FragmentDemo/>*/}
 
             {/*<LifeCycleA/>*/}
 
