@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react';
+import React, {Component} from 'react';
 import './App.css';
 // import Hello from "./Components/Hello";
 // import Welcome from "./Components/Welcome";
@@ -18,13 +18,18 @@ import './App.css';
 // import style from "./appStyles.module.css";
 // import Form from "./Components/Form";
 // import LifeCycleA from "./Components/LifeCycleA";
-import FragmentDemo from "./Components/FragmentDemo";
-import ParentComp from "./Components/ParentComp";
+// import FragmentDemo from "./Components/FragmentDemo";
+// import ParentComp from "./Components/ParentComp";
+// import RefDemo from "./Components/RefDemo";
+import PracticeRefDemo from "./Components/practice/PracticeRefDemo";
 
 function App() {
     return (
         <div className="App">
-            <ParentComp/>
+
+            <PracticeRefDemo/>
+            {/*<RefDemo/>*/}
+            {/*<ParentComp/>*/}
 
 
             {/*<FragmentDemo/>*/}
