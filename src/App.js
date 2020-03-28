@@ -13,12 +13,19 @@ import ParentComponent from "./Components/ParentComponent";
 import HomePage from "./Components/practice/HomePage";
 import UserGreeting from "./Components/UserGreeting";
 import NameList from "./Components/nameList";
-
+import Stylesheet from "./Components/Stylesheet";
+import Inline from "./Components/inline";
+import "./appStyles.css";
+import style from "./appStyles.module.css";
 
 function App() {
     return (
         <div className="App">
-            <NameList/>
+            <h1 className="success">Success</h1>
+            <h2 className={style.error}>Error</h2>
+            <Inline/>
+            <Stylesheet primary={true}/>
+            {/*<NameList/>*/}
             {/*<UserGreeting/>*/}
 
             {/*<ParentComponent/>*/}

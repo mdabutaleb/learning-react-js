@@ -7,8 +7,8 @@ function Person(props) {
         <tr>
             <td>{person.id}</td>
             <td>{person.name}</td>
-            <td>{person.name}</td>
-            <td>{person.name}</td>
+            <td>{person.age}</td>
+            <td>{person.skill}</td>
             {/*<td>{props.person.age}</td>*/}
             {/*<td>{props.person.skill}</td>*/}
         </tr>
