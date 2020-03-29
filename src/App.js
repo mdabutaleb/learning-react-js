@@ -1,13 +1,12 @@
 import React, {Component} from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.css'
-import Increment from "./projectComponent/increment";
-
+import Movies from "./projectComponent/movies";
 
 function App() {
     return (
         <div>
-            <Increment/>
+           <Movies/>
         </div>
     );
 }
