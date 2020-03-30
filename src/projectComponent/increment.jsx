@@ -4,25 +4,25 @@ class Increment extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            count: 0,
+            value: this.props.value,
         }
-        this.clickHandle = this.clickHandle.bind(this)
     }
 
     clickHandle = () => {
         this.setState({
-            count: this.state.count + 1,
+            value: this.state.value + 1,
         })
     }
 
 
     render() {
         return (
-            <div>
+            <div style={{border: '1px solid gray', padding: '5px'}}>
+                {this.props.children}
                 {
-                    this.state.count === 0 && 'There is no count value. Please add'
+                    this.state.value === 0 && 'There is no value value. Please add'
                 }
-                <span className={this.getClasses()}>{this.formatCount()}</span>
+                <span className={this.getClasses()}>{this.formatvalue()}</span>
                 <button className="btn btn-secondary btn-sm" onClick={this.clickHandle}>Increment</button>
             </div>
         );
@@ -30,14 +30,14 @@ class Increment extends Component {
 
     getClasses() {
         let classes = 'badge m-2 badge-'
-        classes += this.state.count === 0 ? 'warning' : 'success';
+        classes += this.state.value === 0 ? 'warning' : 'success';
         return classes;
 
     }
 
-    formatCount() {
-        const {count} = this.state;
-        return count === 0 ? 'Zero' : count;
+    formatvalue() {
+        const {value} = this.state;
+        return value === 0 ? 'Zero' : value;
     }
 
 }
