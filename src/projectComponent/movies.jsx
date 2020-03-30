@@ -10,22 +10,25 @@ class Movies extends Component {
         }
     }
 
-    handleDelete = movie => {
-        deleteMovie(movie);
+    handleDelete = (movieId) => {
+        const movies = this.state.movies.filter(m => m._id !== movieId)
         this.setState({
-            movies: getMovies(),
+            movies: movies,
         })
     }
 
-
+    movieCount() {
+        let length = this.state.movies.length;
+        return length > 0 ? <p>Showing {length} movies in the database</p> : <p>There are no movies in the database</p>;
+    }
 
     render() {
-        let row = this.state.movies.map(movie => <MovieList key={movie._id} movie={movie} handle={this.handleDelete}/>)
+        // let row = this.state.movies.map(movie => <MovieList key={movie._id} movie={movie} handle={this.handleDelete}/>)
         // console.log(this.state.movies)
         return (
             <div className="container">
                 <div className="starter-template">
-                    <p>Showing {this.state.movies.length} movies in the database</p>
+                    {this.movieCount()}
                     <table className="table">
                         <thead>
                         <tr>
@@ -38,8 +41,19 @@ class Movies extends Component {
                         </thead>
                         <tbody>
                         {
-                         row
-
+                            this.state.movies.map(movie =>
+                                <tr key={movie._id}>
+                                    <td>{movie.title}</td>
+                                    <td>{movie.genre.name}</td>
+                                    <td>{movie.numberInStock}</td>
+                                    <td>{movie.dailyRentalRate}</td>
+                                    <td>
+                                        <button onClick={() => this.handleDelete(movie._id)}
+                                                className="btn btn-danger">Delete
+                                        </button>
+                                    </td>
+                                </tr>
+                            )
                         }
 
 
