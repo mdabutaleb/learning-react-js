@@ -1,18 +1,6 @@
 import React, {Component} from 'react';
 
 class Increment extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            value: this.props.value,
-        }
-    }
-
-    clickHandle = () => {
-        this.setState({
-            value: this.state.value + 1,
-        })
-    }
 
 
     render() {
@@ -21,8 +9,12 @@ class Increment extends Component {
                 {this.props.children}
 
                 <span className={this.getClasses()}>{this.formatvalue()}</span>
-                <button className="btn btn-secondary btn-sm" onClick={this.clickHandle}>Increment</button>
-                <button className="btn btn-danger btn-sm" onClick={() =>  this.props.onDelete(this.props.id)}>Delete</button>
+                <button className="btn btn-secondary btn-sm"
+                        onClick={() => this.props.onIncrement(this.props.counter)}>Increment
+                </button>
+                <button className="btn btn-danger btn-sm"
+                        onClick={() => this.props.onDelete(this.props.counter.id)}>Delete
+                </button>
 
             </div>
         );
@@ -30,13 +22,13 @@ class Increment extends Component {
 
     getClasses() {
         let classes = 'badge m-2 badge-'
-        classes += this.state.value === 0 ? 'warning' : 'success';
+        classes += this.props.counter.value === 0 ? 'warning' : 'success';
         return classes;
 
     }
 
     formatvalue() {
-        const {value} = this.state;
+        const value = this.props.counter.value;
         return value === 0 ? 'Zero' : value;
     }
 
