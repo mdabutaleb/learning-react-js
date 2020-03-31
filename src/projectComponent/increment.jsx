@@ -19,11 +19,11 @@ class Increment extends Component {
         return (
             <div style={{border: '1px solid gray', padding: '5px'}}>
                 {this.props.children}
-                {
-                    this.state.value === 0 && 'There is no value value. Please add'
-                }
+
                 <span className={this.getClasses()}>{this.formatvalue()}</span>
                 <button className="btn btn-secondary btn-sm" onClick={this.clickHandle}>Increment</button>
+                <button className="btn btn-danger btn-sm" onClick={() =>  this.props.onDelete(this.props.id)}>Delete</button>
+
             </div>
         );
     }

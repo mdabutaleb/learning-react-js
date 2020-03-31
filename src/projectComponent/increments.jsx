@@ -13,8 +13,13 @@ class Increments extends Component {
                 {id: 4, value: 0},
             ]
         }
+    }
 
-
+    handleDelete = (counterId) => {
+       const counters = this.state.counters.filter(counter => counter.id !== counterId)
+      this.setState({
+          counters
+      })
     }
 
     render() {
@@ -22,8 +27,8 @@ class Increments extends Component {
             <div>
                 {
                     this.state.counters.map(counter => (
-                            <Increment key={counter.id} value={counter.value}>
-                                <h6>Heading</h6>
+                            <Increment key={counter.id} value={counter.value} id={counter.id} onDelete={this.handleDelete}>
+
                             </Increment>
 
                         )
