@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {getMovies, deleteMovie} from "../services/fakeMovieService";
-import MovieList from "./movieList";
+import Liked from "./liked";
+
+// import MovieList from "./movieList";
 
 class Movies extends Component {
     constructor(props) {
@@ -22,9 +24,17 @@ class Movies extends Component {
         return length > 0 ? <p>Showing {length} movies in the database</p> : <p>There are no movies in the database</p>;
     }
 
+    handleLiked = movie => {
+        const movies = [...this.state.movies];
+        const index = movies.indexOf(movie);
+        movies[index] = {...movie};
+        movies[index].liked =  !movies[index].liked
+        this.setState({
+            movies
+        })
+    }
+
     render() {
-        // let row = this.state.movies.map(movie => <MovieList key={movie._id} movie={movie} handle={this.handleDelete}/>)
-        // console.log(this.state.movies)
         return (
             <div className="container">
                 <div className="starter-template">
@@ -36,6 +46,7 @@ class Movies extends Component {
                             <th scope="col">Genre</th>
                             <th scope="col">Stock</th>
                             <th scope="col">Rate</th>
+                            <th scope="col">Like</th>
                             <th scope="col">Action</th>
                         </tr>
                         </thead>
@@ -47,6 +58,8 @@ class Movies extends Component {
                                     <td>{movie.genre.name}</td>
                                     <td>{movie.numberInStock}</td>
                                     <td>{movie.dailyRentalRate}</td>
+                                    {/*<td> <i className="fa fa-heart" aria-hidden="true    " role="button" style={{cursor: 'pointer'}}></i></td>*/}
+                                    <td><Liked liked={movie.liked} onLiked={() => this.handleLiked(movie)}/></td>
                                     <td>
                                         <button onClick={() => this.handleDelete(movie._id)}
                                                 className="btn btn-danger">Delete
@@ -55,8 +68,6 @@ class Movies extends Component {
                                 </tr>
                             )
                         }
-
-
                         </tbody>
                     </table>
                 </div>
