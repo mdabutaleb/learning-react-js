@@ -5,6 +5,10 @@ import Increments from "./projectComponent/increments";
 import Navbar from "./projectComponent/navbar";
 
 class App extends Component {
+    constructor(props) {
+        super(props);
+        console.log('App constructor');
+    }
 
 
     state = {
@@ -45,6 +49,16 @@ class App extends Component {
         })
 
     }
+    handleDecrement = counter => {
+        const counters = [...this.state.counters];
+        const index = counters.indexOf(counter);
+        counters[index] = {...counter}
+        counters[index].value--
+        this.setState({
+            counters
+        })
+
+    }
 
     totalCount = () => {
         const totalCount = this.state.counters.filter(c => c.value > 0).length
@@ -52,7 +66,13 @@ class App extends Component {
         // return a;
     }
 
+    componentDidMount() {
+        console.log('Component mounting')
+    }
+
+
     render() {
+        console.log('App rendering')
         return (
             <React.Fragment>
                 <Navbar totalCount={this.totalCount()}/>
@@ -62,6 +82,7 @@ class App extends Component {
                         onIncrement={this.handleIncrement}
                         onReset={this.handleReset}
                         onDelete={this.handleDelete}
+                        onDecrement={this.handleDecrement}
                     />
                 </div>
             </React.Fragment>

@@ -4,7 +4,8 @@ import Increment from "./increment";
 class Increments extends Component {
 
     render() {
-        const {onReset, onDelete, counters, onIncrement} = this.props;
+        console.log('Increments rendering')
+        const {onReset, onDelete, counters, onIncrement, onDecrement} = this.props;
         return (
             <div>
                 <button className="btn btn-secondary btn-sm m-2" onClick={onReset}>Reset</button>
@@ -15,6 +16,7 @@ class Increments extends Component {
                                 counter={counter}
                                 onDelete={onDelete}
                                 onIncrement={onIncrement}
+                                onDecrement={onDecrement}
                             >
                             </Increment>
 

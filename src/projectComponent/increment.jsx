@@ -2,33 +2,50 @@ import React, {Component} from 'react';
 
 class Increment extends Component {
 
-
     render() {
+        const { onDelete, counter, onIncrement, onDecrement} = this.props;
         return (
-            <div style={{border: '1px solid gray', padding: '5px'}}>
+            <div>
+                <div className="row">
+                    <div className="col-sm-1">
+                        <span className={this.getBadgesClasses(counter)}>{this.getTotal(counter)}</span>
+                    </div>
+                    <div className="col-md-2">
 
-                <span className={this.getClasses()}>{this.formatvalue()}</span>
-                <button className="btn btn-secondary btn-sm"
-                        onClick={() => this.props.onIncrement(this.props.counter)}>Increment
-                </button>
-                <button className="btn btn-danger btn-sm"
-                        onClick={() => this.props.onDelete(this.props.counter.id)}>Delete
-                </button>
+                        <button className="btn btn-secondary btn-sm m-1 "
+                                onClick={() => onIncrement(counter)}> +
+                        </button>
+
+                        <button className="btn btn-secondary btn-sm m-1" disabled={this.getDisabledClass(counter)}
+                                onClick={() => onDecrement(counter)}> -
+                        </button>
+
+                        <button className="btn btn-danger btn-sm m-1"
+                                onClick={() => onDelete(counter.id)}> X
+                        </button>
+                    </div>
+
+                </div>
+
 
             </div>
         );
     }
 
-    getClasses() {
+    getBadgesClasses(counter) {
         let classes = 'badge m-2 badge-'
-        classes += this.props.counter.value === 0 ? 'warning' : 'success';
+        classes += counter.value === 0 ? 'warning' : 'success';
         return classes;
 
     }
 
-    formatvalue() {
-        const value = this.props.counter.value;
-        return value === 0 ? 'Zero' : value;
+    getDisabledClass(counter) {
+                return counter.value === 0 ? true : '';
+    };
+
+    getTotal(counter) {
+
+        return counter.value === 0 ? 'Zero' : counter.value;
     }
 
 }
