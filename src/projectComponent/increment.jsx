@@ -6,7 +6,6 @@ class Increment extends Component {
     render() {
         return (
             <div style={{border: '1px solid gray', padding: '5px'}}>
-                {this.props.children}
 
                 <span className={this.getClasses()}>{this.formatvalue()}</span>
                 <button className="btn btn-secondary btn-sm"
