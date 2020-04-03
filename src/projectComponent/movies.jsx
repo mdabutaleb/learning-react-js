@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import {getMovies, deleteMovie} from "../services/fakeMovieService";
 import Liked from "./liked";
-
+import Pagination from "./pagination";
+import {paginate} from "../utilis/paginate"
 // import MovieList from "./movieList";
 
 class Movies extends Component {
@@ -9,6 +10,9 @@ class Movies extends Component {
         super(props);
         this.state = {
             movies: getMovies(),
+            itemPerPage: 4,
+            totalItem: 10,
+            currentPage: 1,
         }
     }
 
@@ -28,13 +32,22 @@ class Movies extends Component {
         const movies = [...this.state.movies];
         const index = movies.indexOf(movie);
         movies[index] = {...movie};
-        movies[index].liked =  !movies[index].liked
+        movies[index].liked = !movies[index].liked
         this.setState({
             movies
         })
     }
 
+    handlePagination = (page) => {
+       this.setState({
+           currentPage: page,
+       })
+    }
+
     render() {
+        const {itemPerPage, currentPage, movies: allMovies} = this.state;
+        const movies = paginate(allMovies, currentPage, itemPerPage)
+        console.log(movies)
         return (
             <div className="container">
                 <div className="starter-template">
@@ -52,7 +65,7 @@ class Movies extends Component {
                         </thead>
                         <tbody>
                         {
-                            this.state.movies.map(movie =>
+                            movies.map(movie =>
                                 <tr key={movie._id}>
                                     <td>{movie.title}</td>
                                     <td>{movie.genre.name}</td>
@@ -70,6 +83,12 @@ class Movies extends Component {
                         }
                         </tbody>
                     </table>
+                    <Pagination
+                        itemPerPage={itemPerPage}
+                        totalItem={this.state.movies.length}
+                        currentPage={currentPage}
+                        onPageChange={this.handlePagination}
+                    />
                 </div>
             </div>
         );
