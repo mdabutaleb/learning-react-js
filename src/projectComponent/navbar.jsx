@@ -17,8 +17,12 @@ const Navbar = (props) => {
                             <Link className="nav-link" to="/movies">Movies</Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="increment-app">Increment App</Link>
+                            <Link className="nav-link" to="/products">Products</Link>
                         </li>
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/increment-app">Increment App</Link>
+                        </li>
+
                     </ul>
                 </div>
             </nav>
