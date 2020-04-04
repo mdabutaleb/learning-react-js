@@ -1,13 +1,11 @@
 import React, {Component} from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.css'
-import Navbar from "./projectComponent/navbar";
 import Increments from "./projectComponent/increments";
 
 class IncrementApp extends Component {
     constructor(props) {
         super(props);
-        console.log('App constructor');
     }
 
 
@@ -67,15 +65,14 @@ class IncrementApp extends Component {
     }
 
     componentDidMount() {
-        console.log('Component mounting')
+        // console.log('Component mounting')
     }
 
 
     render() {
-        console.log('App rendering')
+
         return (
             <React.Fragment>
-                <Navbar totalCount={this.totalCount()}/>
                 <div className="container">
                     <Increments
                         counters={this.state.counters}
