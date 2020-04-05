@@ -15,6 +15,7 @@ import PostDetails from "./projectComponent/postDetails";
 import NotFound from "./projectComponent/404";
 import Sidebar from "./projectComponent/admin/sidebar";
 import Dashboard from "./projectComponent/admin/dashboard";
+import MovieForm from "./projectComponent/movieForm";
 
 class App extends Component {
     constructor(props) {
@@ -33,6 +34,7 @@ class App extends Component {
                     <Route path="/products" render={(props) => <Products {...props}/>}/>
                     <Route path="/posts/:year/:month?" render={(props) => <PostDetails {...props}/>}/>
                     <Route path="/posts" render={(props) => <Posts {...props}/>}/>
+                    <Route path="/movies/:id" exact render={(props) => <MovieForm {...props}/>}/>
                     <Route path="/movies" render={(props) => <Movies {...props}/>}/>
                     <Route path="/increment-app" component={IncrementApp}/>
                     <Redirect from="/test" to="movies"/>

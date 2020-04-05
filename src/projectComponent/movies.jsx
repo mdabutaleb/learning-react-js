@@ -3,6 +3,8 @@ import {getMovies, deleteMovie} from "../services/fakeMovieService";
 import Liked from "./liked";
 import Pagination from "./pagination";
 import {paginate} from "../utilis/paginate"
+import {Link} from "react-router-dom";
+
 // import MovieList from "./movieList";
 
 class Movies extends Component {
@@ -39,9 +41,9 @@ class Movies extends Component {
     }
 
     handlePagination = (page) => {
-       this.setState({
-           currentPage: page,
-       })
+        this.setState({
+            currentPage: page,
+        })
     }
 
     render() {
@@ -49,48 +51,54 @@ class Movies extends Component {
         const movies = paginate(allMovies, currentPage, itemPerPage)
         console.log(movies)
         return (
-            <div className="container">
-                <div className="starter-template">
-                    {this.movieCount()}
-                    <table className="table">
-                        <thead>
-                        <tr>
-                            <th scope="col">Title</th>
-                            <th scope="col">Genre</th>
-                            <th scope="col">Stock</th>
-                            <th scope="col">Rate</th>
-                            <th scope="col">Like</th>
-                            <th scope="col">Action</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {
-                            movies.map(movie =>
-                                <tr key={movie._id}>
-                                    <td>{movie.title}</td>
-                                    <td>{movie.genre.name}</td>
-                                    <td>{movie.numberInStock}</td>
-                                    <td>{movie.dailyRentalRate}</td>
-                                    {/*<td> <i className="fa fa-heart" aria-hidden="true    " role="button" style={{cursor: 'pointer'}}></i></td>*/}
-                                    <td><Liked liked={movie.liked} onLiked={() => this.handleLiked(movie)}/></td>
-                                    <td>
-                                        <button onClick={() => this.handleDelete(movie._id)}
-                                                className="btn btn-danger">Delete
-                                        </button>
-                                    </td>
-                                </tr>
-                            )
-                        }
-                        </tbody>
-                    </table>
-                    <Pagination
-                        itemPerPage={itemPerPage}
-                        totalItem={this.state.movies.length}
-                        currentPage={currentPage}
-                        onPageChange={this.handlePagination}
-                    />
+            <>
+                <div className="container">
+                    <div className="starter-template">
+                        {this.movieCount()}
+                        <table className="table">
+                            <thead>
+                            <tr>
+                                <th scope="col">Title</th>
+                                <th scope="col">Genre</th>
+                                <th scope="col">Stock</th>
+                                <th scope="col">Rate</th>
+                                <th scope="col">Like</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {
+                                movies.map(movie =>
+                                    <tr key={movie._id}>
+                                        <td>
+                                            <Link to={`/movies/${movie._id}`}>{movie.title}</Link>
+                                        </td>
+                                        <td>{movie.genre.name}</td>
+                                        <td>{movie.numberInStock}</td>
+                                        <td>{movie.dailyRentalRate}</td>
+                                        {/*<td> <i className="fa fa-heart" aria-hidden="true    " role="button" style={{cursor: 'pointer'}}></i></td>*/}
+                                        <td><Liked liked={movie.liked} onLiked={() => this.handleLiked(movie)}/></td>
+                                        <td>
+                                            <button onClick={() => this.handleDelete(movie._id)}
+                                                    className="btn btn-danger">Delete
+                                            </button>
+                                        </td>
+                                    </tr>
+                                )
+                            }
+                            </tbody>
+                        </table>
+                        <Pagination
+                            itemPerPage={itemPerPage}
+                            totalItem={this.state.movies.length}
+                            currentPage={currentPage}
+                            onPageChange={this.handlePagination}
+                        />
+                    </div>
                 </div>
-            </div>
+
+
+            </>
         );
     }
 }
