@@ -1,6 +1,11 @@
 import React, {Component} from 'react';
 
 class ProductDetails extends Component {
+
+    handleSave = () => {
+       this.props.history.push('/products')
+    }
+
     render() {
         return (
             <div>
@@ -12,7 +17,7 @@ class ProductDetails extends Component {
                     <p>It uses utility classes for typography and spacing to space content out within the larger
                         container.</p>
                     <p className="lead">
-                        <a className="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+                        <button onClick={this.handleSave} className="btn btn-primary btn-lg" role="button">Save</button>
                     </p>
                 </div>
             </div>
