@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import IncrementApp from "./IncrementApp";
 import Movies from "./projectComponent/movies";
 import 'font-awesome/css/font-awesome.css'
-import {Route, Switch} from "react-router-dom";
+import {Route, Switch, Redirect} from "react-router-dom";
 
 import Navbar from "./projectComponent/navbar";
 import Home from "./projectComponent/home";
@@ -12,6 +12,7 @@ import Products from "./projectComponent/products";
 import ProductDetails from "./projectComponent/productDetails";
 import Posts from "./projectComponent/posts";
 import PostDetails from "./projectComponent/postDetails";
+import NotFound from "./projectComponent/404";
 
 class App extends Component {
     constructor(props) {
@@ -31,7 +32,10 @@ class App extends Component {
                     <Route path="/posts" render={(props) => <Posts {...props}/>}/>
                     <Route path="/movies" render={(props) => <Movies {...props}/>}/>
                     <Route path="/increment-app" component={IncrementApp}/>
-                    <Route path="/" component={Home}/>
+                    <Redirect from="/test" to="movies"/>
+                    <Route path="/404" component={NotFound}/>
+                    <Route path="/" exact component={Home}/>
+                    <Redirect to="/404"/>
                 </Switch>
             </div>
 
