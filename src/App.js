@@ -13,6 +13,8 @@ import ProductDetails from "./projectComponent/productDetails";
 import Posts from "./projectComponent/posts";
 import PostDetails from "./projectComponent/postDetails";
 import NotFound from "./projectComponent/404";
+import Sidebar from "./projectComponent/admin/sidebar";
+import Dashboard from "./projectComponent/admin/dashboard";
 
 class App extends Component {
     constructor(props) {
@@ -26,6 +28,7 @@ class App extends Component {
             <div>
                 <Navbar/>
                 <Switch>
+                    <Route path="/admin" component={Dashboard}/>
                     <Route path="/products/:id" component={ProductDetails}/>
                     <Route path="/products" render={(props) => <Products {...props}/>}/>
                     <Route path="/posts/:year/:month?" render={(props) => <PostDetails {...props}/>}/>
