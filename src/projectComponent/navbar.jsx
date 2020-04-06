@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Link} from "react-router-dom";
+import {Link, NavLink} from "react-router-dom";
 
 const Navbar = (props) => {
 
@@ -14,22 +14,25 @@ const Navbar = (props) => {
                 <div className="collapse navbar-collapse" id="navbarNav">
                     <ul className="navbar-nav">
                         <li className="nav-item">
-                            <Link className="nav-link" to="/admin">Admin</Link>
+                            <NavLink className="nav-link" to="/admin">Admin |</NavLink>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="/movies">Movies</Link>
+                            <NavLink className="nav-link" to="/movies">Movies |</NavLink>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="/products">Products</Link>
+                            <NavLink className="nav-link" to="/products">Products |</NavLink>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="/increment-app">Increment App</Link>
+                            <NavLink className="nav-link" to="/increment-app">Increment App  |</NavLink>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="/posts">Posts</Link>
+                            <NavLink className="nav-link" to="/posts">Posts |</NavLink>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="/contact-us">Contact Us</Link>
+                            <NavLink className="nav-link" to="/contact-us">Contact Us |</NavLink>
+                        </li>
+                        <li className="nav-item">
+                            <NavLink className="nav-link" to="/login">Login</NavLink>
                         </li>
 
                     </ul>

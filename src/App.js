@@ -16,6 +16,7 @@ import NotFound from "./projectComponent/404";
 import Sidebar from "./projectComponent/admin/sidebar";
 import Dashboard from "./projectComponent/admin/dashboard";
 import MovieForm from "./projectComponent/movieForm";
+import Login from "./projectComponent/login";
 
 class App extends Component {
     constructor(props) {
@@ -29,6 +30,7 @@ class App extends Component {
             <div>
                 <Navbar/>
                 <Switch>
+                    <Route path="/login" component={Login}/>
                     <Route path="/admin" component={Dashboard}/>
                     <Route path="/products/:id" component={ProductDetails}/>
                     <Route path="/products" render={(props) => <Products {...props}/>}/>
