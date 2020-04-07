@@ -13,6 +13,7 @@ class Form extends Component {
             errors: {}
         }
     }
+
     validate = () => {
         const option = {abortEarly: false};
         const {error} = Joy.validate(this.state.data, this.schema, option);
@@ -52,6 +53,11 @@ class Form extends Component {
         data[input.name] = input.value;
         // setting value and error to state
         this.setState({data, errors})
+    }
+
+    renderButton(label) {
+        return <button disabled={this.validate()} type="submit" className="btn btn-primary">{label}</button>
+
     }
 
 }
