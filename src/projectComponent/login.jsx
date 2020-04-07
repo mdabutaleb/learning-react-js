@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Input from "./common/input";
+import Joy from "joi";
 
 class Login extends Component {
 
@@ -15,21 +16,27 @@ class Login extends Component {
         }
     }
 
-    handleValidate = () => {
+    schema = {
+        username: Joy.string().required().label("Username"),
+        password: Joy.string().required().label("Password"),
+    }
+
+    validate = () => {
+        const option = {abortEarly: false};
+        const {error} = Joy.validate(this.state.account, this.schema, option);
+        if (!error) return null;
+
         const errors = {}
-        const {account} = this.state;
+        for (let item of error.details) {
+            errors[item.path[0]] = item.message
+        }
+        return errors;
 
-        if (account.username.trim() === '')
-            errors.username = "Username field is required";
-
-        if (account.password.trim() === '')
-            errors.password = "Password field is required";
-        return Object.keys(errors).length === 0 ? null : errors;
     }
 
     handleSubmit = (e) => {
         e.preventDefault();
-        const errors = this.handleValidate()
+        const errors = this.validate()
         this.setState({errors: errors || {}})
         if (errors) return;
         //save to database
@@ -37,10 +44,10 @@ class Login extends Component {
 
     validateProperty = (input) => {
         if (input.name === 'username') {
-            if(input.value.trim()==='') return "Username field is required";
+            if (input.value.trim() === '') return "Username field is required";
         }
         if (input.name === 'password') {
-            if(input.value.trim()==='') return "Password field is required";
+            if (input.value.trim() === '') return "Password field is required";
         }
     }
 
