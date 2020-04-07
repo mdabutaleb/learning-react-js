@@ -31,14 +31,30 @@ class Login extends Component {
         e.preventDefault();
         const errors = this.handleValidate()
         this.setState({errors: errors || {}})
-
+        if (errors) return;
         //save to database
     }
 
+    validateProperty = (input) => {
+        if (input.name === 'username') {
+            if(input.value.trim()==='') return "Username field is required";
+        }
+        if (input.name === 'password') {
+            if(input.value.trim()==='') return "Password field is required";
+        }
+    }
+
     handleChange = ({currentTarget: input}) => {
+        // validating error
+        const errors = {...this.state.errors}
+        const errorMessage = this.validateProperty(input);
+        if (errorMessage) errors[input.name] = errorMessage
+        else delete errors[input.name];
+
         const account = {...this.state.account}
         account[input.name] = input.value;
-        this.setState({account})
+        // setting value and error to state
+        this.setState({account, errors})
     }
 
     render() {
