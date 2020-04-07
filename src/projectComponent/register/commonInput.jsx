@@ -1,16 +1,14 @@
 import React, {Component} from 'react';
 
-const RegInput = ({name, label, type = "text", value, onChange, error }) => {
+const CommonInput = ({name, label, error, ...rest}) => {
 
     return (
         <div className="form-group">
             <label htmlFor={name}>{label}</label>
             <input
+                {...rest}
                 id={name}
-                type={type}
                 name={name}
-                value={value}
-                onChange={onChange}
                 className="form-control"/>
             {
                 error &&
@@ -24,4 +22,4 @@ const RegInput = ({name, label, type = "text", value, onChange, error }) => {
 
 }
 
-export default RegInput;
+export default CommonInput;

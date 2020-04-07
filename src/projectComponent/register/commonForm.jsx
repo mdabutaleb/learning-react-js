@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Joi from "joi";
+import CommonInput from "./commonInput";
 
 class CommonForm extends Component {
     state = {
@@ -51,6 +52,29 @@ class CommonForm extends Component {
             data, errors
         })
     }
+
+    renderSubmitButton(label) {
+        return (
+            <button type="submit" className="btn btn-primary">{label}</button>
+        )
+    }
+
+    renderInput(name, label, type = "text") {
+        const {data, errors} = this.state;
+        return (
+            <CommonInput
+                name={name}
+                label={label}
+                value={data[name]}
+                type={type}
+                onChange={this.handleChange}
+                error={errors[name]}
+            />
+        )
+
+    }
+
+
 }
 
 export default CommonForm;
