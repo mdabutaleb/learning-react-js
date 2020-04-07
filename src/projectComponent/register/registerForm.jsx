@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import RegInput from "./regInput";
+import Joi from "joi";
 
 class RegisterForm extends Component {
     state = {
@@ -9,6 +10,48 @@ class RegisterForm extends Component {
             password: ''
         },
         errors: {}
+    }
+
+    schema = {
+        name: Joi.string().min(5).max(20).required().label("Name"),
+        email: Joi.string().email().min(4).max(30).required().label("Email"),
+        password: Joi.string().min(8).max(30).required().label("Password"),
+    }
+
+
+    validateProperty({name, value}) {
+        const obj = {[name]: value}
+        const schema = {[name]: this.schema[name]}
+        const {error} = Joi.validate(obj, schema)
+        return (error) ? error.details[0].message : null;
+    }
+
+    validateForm() {
+        const {error} = Joi.validate(this.state.data, this.schema, {abortEarly: false});
+        if (!error) return;
+
+        const errors = {};
+        for (let item of error.details) {
+            errors[item.path[0]] = item.message
+        }
+        return errors;
+
+    }
+
+    handleSubmit = (e) => {
+        e.preventDefault();
+        const errors = this.validateForm();
+        this.setState({
+                errors: errors || {}
+            }
+        )
+
+        if (errors) return;
+        this.doSubmit();
+    }
+
+    doSubmit() {
+        console.log('Submitted!')
     }
 
     handleChange = ({currentTarget: input}) => {
@@ -21,39 +64,6 @@ class RegisterForm extends Component {
             data, errors
         })
     }
-
-
-    validateProperty({name, value}) {
-        if (name === 'name') {
-            return (value.trim() === "") ? 'Name field is required' : null
-        }
-        if (name === 'email') {
-            return (value.trim() === "") ? 'Email field is required' : null
-        }
-        if (name === 'password') {
-            return (value.trim() === "") ? 'Password field is required' : null
-        }
-    }
-
-    validateForm() {
-        const errors = {};
-        const data = {...this.state.data};
-        if (data.name.trim() === '') errors.name = "Name field is required"
-        if (data.email.trim() === '') errors.email = "Email field is required"
-        if (data.password.trim() === '') errors.password = "Password field is required"
-        return Object.keys(errors.length === 0) ? errors : null
-    }
-
-    handleSubmit = (e) => {
-        e.preventDefault();
-        const errors = this.validateForm();
-        this.setState({
-                errors: errors || {}
-            }
-        )
-
-    }
-
 
     render() {
         const {data, errors} = this.state;

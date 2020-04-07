@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Joy from "joi";
+import Joi from "joi";
 import Input from "./input";
 
 class Form extends Component {
@@ -17,7 +17,7 @@ class Form extends Component {
 
     validate = () => {
         const option = {abortEarly: false};
-        const {error} = Joy.validate(this.state.data, this.schema, option);
+        const {error} = Joi.validate(this.state.data, this.schema, option);
         if (!error) return null;
 
         const errors = {}
@@ -30,7 +30,7 @@ class Form extends Component {
     validateProperty = ({name, value}) => {
         const obj = {[name]: value}
         const schema = {[name]: this.schema[name]}
-        const {error} = Joy.validate(obj, schema);
+        const {error} = Joi.validate(obj, schema);
         return (error) ? error.details[0].message : null
     }
 
