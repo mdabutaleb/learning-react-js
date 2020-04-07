@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Joy from "joi";
+import Input from "./input";
 
 class Form extends Component {
     constructor(props) {
@@ -56,7 +57,26 @@ class Form extends Component {
     }
 
     renderButton(label) {
-        return <button disabled={this.validate()} type="submit" className="btn btn-primary">{label}</button>
+        return (
+            <button disabled={this.validate()} type="submit" className="btn btn-primary">
+                {label}
+            </button>
+        )
+
+    }
+
+    renderInput(name, label, type="text") {
+        const {data, errors} = this.state;
+        return (
+            <Input
+                type={type}
+                name={name}
+                value={data[name]}
+                label={label}
+                onChange={this.handleChange}
+                error={errors[name]}
+            />
+        )
 
     }
 

@@ -12,6 +12,7 @@ class Login extends Form {
             errors: {}
         }
     }
+
     schema = {
         username: Joy.string().required().label("Username"),
         password: Joy.string().required().label("Password"),
@@ -22,21 +23,11 @@ class Login extends Form {
     }
 
     render() {
-        const {data, errors} = this.state;
         return (
             <div className="col-md-4 offset-4 mt-5">
                 <form onSubmit={this.handleSubmit}>
-                    <Input label="Username" name="username"
-                           value={data.username}
-                           onChange={this.handleChange}
-                           error={errors.username}
-                    />
-
-                    <Input label="Password" name="password"
-                           value={data.password}
-                           onChange={this.handleChange}
-                           error={errors.password}
-                    />
+                    {this.renderInput('username', 'Username')}
+                    {this.renderInput('password', 'Password', 'password')}
                     {this.renderButton("Login")}
                 </form>
             </div>
