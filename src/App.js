@@ -17,6 +17,7 @@ import Sidebar from "./projectComponent/admin/sidebar";
 import Dashboard from "./projectComponent/admin/dashboard";
 import MovieForm from "./projectComponent/movieForm";
 import Login from "./projectComponent/login";
+import RegisterForm from "./projectComponent/register/registerForm";
 
 class App extends Component {
     constructor(props) {
@@ -31,6 +32,7 @@ class App extends Component {
                 <Navbar/>
                 <Switch>
                     <Route path="/login" component={Login}/>
+                    <Route path="/register" component={RegisterForm}/>
                     <Route path="/admin" component={Dashboard}/>
                     <Route path="/products/:id" component={ProductDetails}/>
                     <Route path="/products" render={(props) => <Products {...props}/>}/>

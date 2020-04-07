@@ -25,7 +25,6 @@ class Form extends Component {
             errors[item.path[0]] = item.message
         }
         return errors;
-
     }
 
     validateProperty = ({name, value}) => {
@@ -35,18 +34,9 @@ class Form extends Component {
         return (error) ? error.details[0].message : null
     }
 
-    handleSubmit = (e) => {
-        e.preventDefault();
-        const errors = this.validate()
-        this.setState({errors: errors || {}})
-        if (errors) return;
-        this.doSubmit();
-    }
-
     handleChange = ({currentTarget: input}) => {
-        // validating error
         const errors = {...this.state.errors}
-        const errorMessage = this.validateProperty(input);
+        const errorMessage = this.validateProperty(input); //input field validation
         if (errorMessage) errors[input.name] = errorMessage
         else delete errors[input.name];
 
@@ -54,6 +44,13 @@ class Form extends Component {
         data[input.name] = input.value;
         // setting value and error to state
         this.setState({data, errors})
+    }
+    handleSubmit = (e) => {
+        e.preventDefault();
+        const errors = this.validate()
+        this.setState({errors: errors || {}})
+        if (errors) return;
+        this.doSubmit();
     }
 
     renderButton(label) {
@@ -65,7 +62,7 @@ class Form extends Component {
 
     }
 
-    renderInput(name, label, type="text") {
+    renderInput(name, label, type = "text") {
         const {data, errors} = this.state;
         return (
             <Input

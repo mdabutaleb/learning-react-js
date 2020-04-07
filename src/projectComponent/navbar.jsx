@@ -11,7 +11,7 @@ const Navbar = (props) => {
                         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
-                <div className="collapse navbar-collapse" id="navbarNav">
+                <div className="collapse navbar-collapse col-md-10" id="navbarNav">
                     <ul className="navbar-nav">
                         <li className="nav-item">
                             <NavLink className="nav-link" to="/admin">Admin |</NavLink>
@@ -23,7 +23,7 @@ const Navbar = (props) => {
                             <NavLink className="nav-link" to="/products">Products |</NavLink>
                         </li>
                         <li className="nav-item">
-                            <NavLink className="nav-link" to="/increment-app">Increment App  |</NavLink>
+                            <NavLink className="nav-link" to="/increment-app">Increment App |</NavLink>
                         </li>
                         <li className="nav-item">
                             <NavLink className="nav-link" to="/posts">Posts |</NavLink>
@@ -31,10 +31,17 @@ const Navbar = (props) => {
                         <li className="nav-item">
                             <NavLink className="nav-link" to="/contact-us">Contact Us |</NavLink>
                         </li>
+
+                    </ul>
+                </div>
+                <div className="collapse navbar-collapse col-md-2" id="navbarNav">
+                    <ul className="navbar-nav">
                         <li className="nav-item">
                             <NavLink className="nav-link" to="/login">Login</NavLink>
                         </li>
-
+                        <li className="nav-item">
+                            <NavLink className="nav-link" to="/register">Register</NavLink>
+                        </li>
                     </ul>
                 </div>
             </nav>
