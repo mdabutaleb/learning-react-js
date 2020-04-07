@@ -42,16 +42,15 @@ class Login extends Component {
         //save to database
     }
 
-    validateProperty = (input) => {
-        if (input.name === 'username') {
-            if (input.value.trim() === '') return "Username field is required";
-        }
-        if (input.name === 'password') {
-            if (input.value.trim() === '') return "Password field is required";
-        }
+    validateProperty = ({name, value}) => {
+        const obj = {[name]: value}
+        const schema = {[name]: this.schema[name]}
+        const {error} = Joy.validate(obj, schema);
+        return (error) ? error.details[0].message : null
     }
 
     handleChange = ({currentTarget: input}) => {
+
         // validating error
         const errors = {...this.state.errors}
         const errorMessage = this.validateProperty(input);
