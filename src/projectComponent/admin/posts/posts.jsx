@@ -42,9 +42,19 @@ class Posts extends Component {
     }
 
     handleDelete = async item => {
-        await axios.delete(apiEndPoint + '/' + item.id);
+        const originalData = this.state.data;
         const data = this.state.data.filter(p => p.id !== item.id)
         this.setState({data})
+
+        try {
+            await axios.delete(apiEndPoint + '/' + item.id);
+            throw new Error('Error re');
+        } catch (error) {
+            console.log('Logging the error', error);
+            alert('Something wrong with delete')
+            this.setState({data: originalData})
+        }
+
     }
 
     handlePagination = (page) => {
