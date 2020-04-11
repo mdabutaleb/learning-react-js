@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import Sidebar from "./sidebar";
 import {Route, Switch} from "react-router-dom";
-import Users from "./users";
-import Posts from "../posts";
+import Users from "./users/users";
+import Posts from "./posts/posts";
 
 class Dashboard extends Component {
     render() {

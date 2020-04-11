@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import {getMovies, deleteMovie} from "../services/fakeMovieService";
 import Liked from "./liked";
-import Pagination from "./pagination";
-import {paginate} from "../utilis/paginate"
 import {Link} from "react-router-dom";
+import PaginationButton from "../utilis/paginationButton";
+import {paginate} from "../utilis/paginate"
 
 // import MovieList from "./movieList";
 
@@ -49,7 +49,7 @@ class Movies extends Component {
     render() {
         const {itemPerPage, currentPage, movies: allMovies} = this.state;
         const movies = paginate(allMovies, currentPage, itemPerPage)
-        console.log(movies)
+        // console.log(movies)
         return (
             <>
                 <div className="container">
@@ -88,7 +88,7 @@ class Movies extends Component {
                             }
                             </tbody>
                         </table>
-                        <Pagination
+                        <PaginationButton
                             itemPerPage={itemPerPage}
                             totalItem={this.state.movies.length}
                             currentPage={currentPage}
