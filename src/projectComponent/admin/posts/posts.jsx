@@ -1,21 +1,10 @@
 import React, {Component} from 'react';
-import {Link} from "react-router-dom";
-import axios from "axios";
-import Liked from "../../liked";
-
 import {paginate} from "../../../utilis/paginate";
 import PaginationButton from "../../../utilis/paginationButton";
-
+import http from "../../../services/httpService";
 const apiEndPoint = 'https://jsonplaceholder.typicode.com/posts';
 
-axios.interceptors.response.use(null, error => {
-    const expectedError = error.response && error.response.status >= 400 && error
-    if (!expectedError) {
-        console.log("Logging the error", error);
-        alert('An unexpected error occurred!')
-    }
-    return Promise.reject(error);
-});
+
 
 class Posts extends Component {
     constructor(props) {
@@ -28,7 +17,7 @@ class Posts extends Component {
     }
 
     async componentDidMount() {
-        const {data} = await axios.get(apiEndPoint)
+        const {data} = await http.get(apiEndPoint)
         this.setState({
             data
         })
@@ -39,7 +28,7 @@ class Posts extends Component {
         const item = {title: "Sumon Mahmud", body: "This is body", id: 202}
         const posts = [item, ...this.state.data];
         this.setState({data: posts})
-        const {data} = await axios.post(apiEndPoint, item);
+        const {data} = await http.post(apiEndPoint, item);
     }
     handleUpdate = async item => {
         item.title = "Updated by Sumon Mahmud"
@@ -47,7 +36,7 @@ class Posts extends Component {
         const index = posts.indexOf(item);
         posts[index] = {...item}
         this.setState({data: posts})
-        const {data} = await axios.put(apiEndPoint + '/' + item.id, item);
+        const {data} = await http.put(apiEndPoint + '/' + item.id, item);
     }
 
     handleDelete = async item => {
@@ -56,7 +45,7 @@ class Posts extends Component {
         this.setState({data})
 
         try {
-            await axios.delete(apiEndPoint + '/' + item.id);
+            await http.delete(apiEndPoint + '/' + item.id);
         } catch (error) {
             if (error.response && error.response.status == 404)
                 alert('This post has already been deleted!')
