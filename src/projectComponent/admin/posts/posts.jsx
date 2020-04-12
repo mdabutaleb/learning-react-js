@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
+import {ToastContainer} from "react-toastify";
 import {paginate} from "../../../utilis/paginate";
 import PaginationButton from "../../../utilis/paginationButton";
 import http from "../../../services/httpService";
-const apiEndPoint = 'https://jsonplaceholder.typicode.com/posts';
-
+import config from "../../../config";
+import "react-toastify/dist/ReactToastify.css"
 
 
 class Posts extends Component {
@@ -17,7 +18,7 @@ class Posts extends Component {
     }
 
     async componentDidMount() {
-        const {data} = await http.get(apiEndPoint)
+        const {data} = await http.get(config.apiEndpoint)
         this.setState({
             data
         })
@@ -28,7 +29,7 @@ class Posts extends Component {
         const item = {title: "Sumon Mahmud", body: "This is body", id: 202}
         const posts = [item, ...this.state.data];
         this.setState({data: posts})
-        const {data} = await http.post(apiEndPoint, item);
+        const {data} = await http.post(config.apiEndpoint, item);
     }
     handleUpdate = async item => {
         item.title = "Updated by Sumon Mahmud"
@@ -36,7 +37,7 @@ class Posts extends Component {
         const index = posts.indexOf(item);
         posts[index] = {...item}
         this.setState({data: posts})
-        const {data} = await http.put(apiEndPoint + '/' + item.id, item);
+        const {data} = await http.put(config.apiEndpoint + '/' + item.id, item);
     }
 
     handleDelete = async item => {
@@ -45,7 +46,7 @@ class Posts extends Component {
         this.setState({data})
 
         try {
-            await http.delete(apiEndPoint + '/' + item.id);
+            const success = await http.delete(config.apiEndpoint + '/' + item.id);
         } catch (error) {
             if (error.response && error.response.status == 404)
                 alert('This post has already been deleted!')
@@ -64,46 +65,49 @@ class Posts extends Component {
         const {itemPerPage, currentPage} = this.state
         const data = paginate(this.state.data, currentPage, itemPerPage)
         return (
-            <div className="container">
-                <div className="starter-template">
-                    <button onClick={this.handleAdd} className="btn btn-primary">Add New</button>
-                    <table className="table">
-                        <thead>
-                        <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Action</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {
-                            data.map(item =>
-                                <tr key={item.id}>
-                                    <td>{item.id}</td>
-                                    <td>{item.title}</td>
-                                    <td>
+            <>
+                <ToastContainer/>
+                <div className="container">
+                    <div className="starter-template">
+                        <button onClick={this.handleAdd} className="btn btn-primary">Add New</button>
+                        <table className="table">
+                            <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {
+                                data.map(item =>
+                                    <tr key={item.id}>
+                                        <td>{item.id}</td>
+                                        <td>{item.title}</td>
+                                        <td>
 
-                                        <button onClick={() => this.handleUpdate(item)}
-                                                className="btn btn-primary btn-sm">Update
-                                        </button>
-                                        <button onClick={() => this.handleDelete(item)}
-                                                className="btn btn-danger btn-sm">Delete
-                                        </button>
+                                            <button onClick={() => this.handleUpdate(item)}
+                                                    className="btn btn-primary btn-sm">Update
+                                            </button>
+                                            <button onClick={() => this.handleDelete(item)}
+                                                    className="btn btn-danger btn-sm">Delete
+                                            </button>
 
-                                    </td>
-                                </tr>
-                            )
-                        }
-                        </tbody>
-                    </table>
-                    <PaginationButton
-                        itemPerPage={itemPerPage}
-                        totalItem={this.state.data.length}
-                        currentPage={currentPage}
-                        onPageChange={this.handlePagination}
-                    />
+                                        </td>
+                                    </tr>
+                                )
+                            }
+                            </tbody>
+                        </table>
+                        <PaginationButton
+                            itemPerPage={itemPerPage}
+                            totalItem={this.state.data.length}
+                            currentPage={currentPage}
+                            onPageChange={this.handlePagination}
+                        />
+                    </div>
                 </div>
-            </div>
+            </>
         );
     }
 }
