@@ -4,8 +4,8 @@ import {paginate} from "../../../utilis/paginate";
 import PaginationButton from "../../../utilis/paginationButton";
 import http from "../../../services/httpService";
 import config from "../../../config";
+import {toast} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"
-
 
 class Posts extends Component {
     constructor(props) {
@@ -46,7 +46,9 @@ class Posts extends Component {
         this.setState({data})
 
         try {
-            const success = await http.delete(config.apiEndpoint + '/' + item.id);
+            const response = await http.delete(config.apiEndpoint + '/' + item.id);
+            if (response.status === 200)
+                toast.success('Successfully Deleted!');
         } catch (error) {
             if (error.response && error.response.status == 404)
                 alert('This post has already been deleted!')
