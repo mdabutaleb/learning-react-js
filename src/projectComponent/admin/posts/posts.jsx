@@ -32,19 +32,26 @@ class Posts extends Component {
         const {data} = await http.post(config.apiEndpoint, item);
     }
     handleUpdate = async item => {
-        item.title = "Updated by Sumon Mahmud"
-        const posts = [...this.state.data];
-        const index = posts.indexOf(item);
-        posts[index] = {...item}
-        this.setState({data: posts})
-        const {data} = await http.put(config.apiEndpoint + '/' + item.id, item);
+        const originalData = this.state.data;
+
+        try {
+            const {response} = await http.put( config.apiEndpoint + '/' + item.id, item);
+            item.title = "Updated by Sumon "
+            const posts = [...this.state.data];
+            const index = posts.indexOf(item);
+            posts[index] = {...item}
+            this.setState({data: posts})
+            toast.success('Successfully updated!');
+        } catch (e) {
+
+        }
     }
 
     handleDelete = async item => {
+
         const originalData = this.state.data;
         const data = this.state.data.filter(p => p.id !== item.id)
         this.setState({data})
-
         try {
             const response = await http.delete(config.apiEndpoint + '/' + item.id);
             if (response.status === 200)
