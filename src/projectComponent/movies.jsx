@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
-import {getMovies, deleteMovie} from "../services/fakeMovieService";
 import Liked from "./liked";
-import {Link} from "react-router-dom";
+import {Link, NavLink} from "react-router-dom";
 import PaginationButton from "../utilis/paginationButton";
 import {paginate} from "../utilis/paginate"
+import {getMovies, deleteMovies} from "../services/movieServices";
+import {toast, ToastContainer} from "react-toastify";
+
 
 // import MovieList from "./movieList";
 
@@ -11,18 +13,34 @@ class Movies extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            movies: getMovies(),
+            movies: [],
             itemPerPage: 4,
             totalItem: 10,
             currentPage: 1,
         }
     }
 
-    handleDelete = (movieId) => {
+    async componentDidMount() {
+        const {data} = await getMovies()
+        this.setState({movies: data})
+        console.log(data);
+    }
+
+    handleDelete = async (movieId) => {
+        const originalMovies = this.state.movies;
         const movies = this.state.movies.filter(m => m._id !== movieId)
         this.setState({
             movies: movies,
         })
+
+        try {
+            const response = await deleteMovies(movieId)
+            if (response.status === 200) {
+                toast.success('Successfully Deleted!');
+            }
+        } catch (e) {
+            this.setState({movies: originalMovies})
+        }
     }
 
     movieCount() {
@@ -52,9 +70,13 @@ class Movies extends Component {
         // console.log(movies)
         return (
             <>
+                <ToastContainer/>
                 <div className="container">
                     <div className="starter-template">
                         {this.movieCount()}
+                        <NavLink className="nav-link" to="/movies/create">
+                            <button className="btn btn-primary btn-sm">Add New</button>
+                        </NavLink>
                         <table className="table">
                             <thead>
                             <tr>
@@ -71,7 +93,7 @@ class Movies extends Component {
                                 movies.map(movie =>
                                     <tr key={movie._id}>
                                         <td>
-                                            <Link to={`/movies/${movie._id}`}>{movie.title}</Link>
+                                            <Link to={`/movies/create/${movie._id}`}>{movie.title}</Link>
                                         </td>
                                         <td>{movie.genre.name}</td>
                                         <td>{movie.numberInStock}</td>

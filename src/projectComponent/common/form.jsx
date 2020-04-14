@@ -6,11 +6,7 @@ class Form extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: {
-                username: '',
-                password: ''
-
-            },
+            data: {},
             errors: {}
         }
     }

@@ -23,8 +23,6 @@ class App extends Component {
         super(props);
 
     }
-
-
     render() {
         return (
             <div>
@@ -37,7 +35,8 @@ class App extends Component {
                     <Route path="/products" render={(props) => <Products {...props}/>}/>
                     <Route path="/posts/:year/:month?" render={(props) => <PostDetails {...props}/>}/>
                     {/*<Route path="/posts" render={(props) => <Pos {...props}/>}/>*/}
-                    <Route path="/movies/:id" exact render={(props) => <MovieForm {...props}/>}/>
+                    {/*<Route path="/movies/:id" exact render={(props) => <MovieForm {...props}/>}/>*/}
+                    <Route path="/movies/create/:id?"  render={(props) => <MovieForm {...props}/>}/>
                     <Route path="/movies" render={(props) => <Movies {...props}/>}/>
                     <Route path="/increment-app" component={IncrementApp}/>
                     <Redirect from="/test" to="movies"/>
