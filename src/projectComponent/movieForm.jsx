@@ -4,6 +4,7 @@ import * as movie from "../services/movieServices"
 import Input from "./common/input";
 import Joi from "joi";
 import {toast} from "react-toastify";
+import Select from "./common/select";
 
 class MovieForm extends Form {
     state = {
@@ -82,44 +83,11 @@ class MovieForm extends Form {
                         <h3>Movie Form </h3>
                         <div className="col-md-6 offset-2">
                             <form onSubmit={this.handleSubmit}>
-                                <Input
-                                    label="Title"
-                                    name="title"
-                                    error={this.state.errors.title}
-                                    onChange={this.handleChange}
-                                    value={this.state.data.title}
-                                />
-                                <label htmlFor="genre">Genre</label>
-                                <select onChange={this.handleChange} value={this.state.data.genreId}
-                                        className="form-control" name="genreId" id="genre">
-                                    <option value="">Select Genre</option>
-                                    {
-                                        this.state.genres.map(genre => (
-                                                <option value={genre._id} key={genre._id}>{genre.name}</option>
-                                            )
-                                        )
-                                    }
-
-                                </select>
-                                {
-                                    this.state.errors.genreId && <div className="alert alert-danger" role="alert">
-                                        {this.state.errors.genreId}
-                                    </div>
-                                }
-                                <Input
-                                    label="Stock"
-                                    name="numberInStock"
-                                    error={this.state.errors.numberInStock}
-                                    onChange={this.handleChange}
-                                    value={this.state.data.numberInStock}
-                                />
-                                <Input
-                                    label="Daily Rental Rate"
-                                    name="dailyRentalRate"
-                                    error={this.state.errors.dailyRentalRate}
-                                    onChange={this.handleChange}
-                                    value={this.state.data.dailyRentalRate}
-                                />
+                                {this.renderInput('title', "Title", "text")}
+                                {this.renderSelect('genreId', 'Select Genre', this.state.genres)}
+                                {/*<Select label="Select Genre" name="genreId" error={this.state.errors.genreId} value={this.state.data.genreId} onChange={this.handleChange} options={this.state.genres}/>*/}
+                                {this.renderInput('numberInStock', 'Number in stock', 'text')}
+                                {this.renderInput('dailyRentalRate', 'Daily Rental Rate', 'text')}
                                 <button onClick={this.submitHandle} className="btn btn-primary">Save</button>
                             </form>
                         </div>

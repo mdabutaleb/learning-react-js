@@ -23,7 +23,6 @@ class Movies extends Component {
     async componentDidMount() {
         const {data} = await getMovies()
         this.setState({movies: data})
-        console.log(data);
     }
 
     handleDelete = async (movieId) => {
