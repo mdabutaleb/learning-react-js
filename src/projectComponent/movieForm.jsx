@@ -28,12 +28,14 @@ class MovieForm extends Form {
 
     }
 
-    async componentDidMount() {
+    async populateGenre() {
         const {data} = await movie.getGenre()
         this.setState({
             genres: data,
         })
+    }
 
+    async populateMovie() {
         if (this.props.match.params.id) {
             const {data} = await movie.viewMovie(this.props.match.params.id)
             this.setState({data: this.mapToViewModel(data)})
@@ -41,6 +43,11 @@ class MovieForm extends Form {
         } else {
             return;
         }
+    }
+
+    async componentDidMount() {
+        this.populateGenre();
+        this.populateMovie();
     }
 
     mapToViewModel(movie) {

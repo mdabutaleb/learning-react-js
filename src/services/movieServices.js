@@ -8,7 +8,7 @@ export function saveMovie(movie) {
         delete body._id;
         return http.put(`${apiEndPoint}/movies/${movie._id}`, body);
     }
-    return http.post(apiEndPoint + '/movies', movie)
+    return http.post(`${apiEndPoint}/movies/`, movie)
 }
 
 export function getMovies() {
