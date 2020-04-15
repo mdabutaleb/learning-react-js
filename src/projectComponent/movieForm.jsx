@@ -21,7 +21,7 @@ class MovieForm extends Form {
 
     schema = {
         _id: Joi.string(),
-        title: Joi.string().min(2).max(20).required().label("Title"),
+        title: Joi.string().min(2).max(30).required().label("Title"),
         genreId: Joi.string().required().label("Genre"),
         numberInStock: Joi.number().required().label("Number In Stock"),
         dailyRentalRate: Joi.number().required().label("Daily Rental Rate"),
@@ -39,7 +39,6 @@ class MovieForm extends Form {
         if (this.props.match.params.id) {
             const {data} = await movie.viewMovie(this.props.match.params.id)
             this.setState({data: this.mapToViewModel(data)})
-
         } else {
             return;
         }
