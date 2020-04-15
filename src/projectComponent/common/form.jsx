@@ -35,15 +35,15 @@ class Form extends Component {
         const errorMessage = this.validateProperty(input); //input field validation
         if (errorMessage) errors[input.name] = errorMessage
         else delete errors[input.name];
-
         const data = {...this.state.data}
         data[input.name] = input.value;
-        // setting value and error to state
         this.setState({data, errors})
+
     }
     handleSubmit = (e) => {
         e.preventDefault();
         const errors = this.validate()
+        console.log(errors);
         this.setState({errors: errors || {}})
         if (errors) return;
         this.doSubmit();

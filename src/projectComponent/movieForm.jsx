@@ -10,19 +10,22 @@ class MovieForm extends Form {
         genres: [],
         data: {
             title: "",
+            genreId: "",
             numberInStock: "",
             dailyRentalRate: "",
-            genreId: ""
+
         },
         errors: {},
 
     }
 
     schema = {
+        _id: Joi.string(),
         title: Joi.string().min(2).max(20).required().label("Title"),
+        genreId: Joi.string().required().label("Genre"),
         numberInStock: Joi.number().required().label("Number In Stock"),
         dailyRentalRate: Joi.number().required().label("Daily Rental Rate"),
-        genreId: Joi.string().required().label("Genre"),
+
     }
 
     async componentDidMount() {
@@ -31,7 +34,23 @@ class MovieForm extends Form {
             genres: data,
         })
 
-        console.log(data);
+        if (this.props.match.params.id) {
+            const {data} = await movie.viewMovie(this.props.match.params.id)
+            this.setState({data: this.mapToViewModel(data)})
+
+        } else {
+            return;
+        }
+    }
+
+    mapToViewModel(movie) {
+        return {
+            _id: movie._id,
+            title: movie.title,
+            genreId: movie.genre._id,
+            numberInStock: movie.numberInStock,
+            dailyRentalRate: movie.dailyRentalRate
+        };
     }
 
     async doSubmit() {
@@ -48,11 +67,6 @@ class MovieForm extends Form {
         }
     }
 
-    // submitHandle = (e) => {
-    //     e.preventDefault();
-    //     console.log(e)
-    //     // this.props.history.push('/movies')
-    // }
 
     render() {
         return (
@@ -62,20 +76,21 @@ class MovieForm extends Form {
                         <h3>Movie Form </h3>
                         <div className="col-md-6 offset-2">
                             <form onSubmit={this.handleSubmit}>
-
-
                                 <Input
                                     label="Title"
                                     name="title"
                                     error={this.state.errors.title}
                                     onChange={this.handleChange}
+                                    value={this.state.data.title}
                                 />
                                 <label htmlFor="genre">Genre</label>
-                                <select onChange={this.handleChange} className="form-control" name="genreId" id="genre">
-                                    <option value={''}>Select Genre</option>
+                                <select onChange={this.handleChange} value={this.state.data.genreId}
+                                        className="form-control" name="genreId" id="genre">
+                                    <option value="">Select Genre</option>
                                     {
-                                        this.state.genres.map(genre =>
-                                            <option value={genre._id} key={genre._id}>{genre.name}</option>
+                                        this.state.genres.map(genre => (
+                                                <option value={genre._id} key={genre._id}>{genre.name}</option>
+                                            )
                                         )
                                     }
 
@@ -90,12 +105,14 @@ class MovieForm extends Form {
                                     name="numberInStock"
                                     error={this.state.errors.numberInStock}
                                     onChange={this.handleChange}
+                                    value={this.state.data.numberInStock}
                                 />
                                 <Input
                                     label="Daily Rental Rate"
                                     name="dailyRentalRate"
                                     error={this.state.errors.dailyRentalRate}
                                     onChange={this.handleChange}
+                                    value={this.state.data.dailyRentalRate}
                                 />
                                 <button onClick={this.submitHandle} className="btn btn-primary">Save</button>
                             </form>
