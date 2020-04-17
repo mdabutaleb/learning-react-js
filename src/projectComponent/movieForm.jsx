@@ -6,6 +6,7 @@ import Joi from "joi";
 import {toast} from "react-toastify";
 import Select from "./common/select";
 
+const URL = process.env.REACT_APP_PUBLIC_URL
 class MovieForm extends Form {
     state = {
         genres: [],
@@ -65,7 +66,7 @@ class MovieForm extends Form {
             const response = await movie.saveMovie(this.state.data);
             if (response.status === 200) {
                 toast.success('Movie Saved Successfully!')
-                this.props.history.push('/movies')
+                this.props.history.push(`${URL}/movies`)
             }
         } catch (e) {
             if (e.response && e.response.status === 400) {

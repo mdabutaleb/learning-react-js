@@ -1,6 +1,6 @@
 import http from "./httpService";
 
-const apiEndPoint = 'http://localhost:3001/api'
+const apiEndPoint = process.env.REACT_APP_API_URL;
 
 function movieUrl(movieID) {
     return `${apiEndPoint}/movies/${movieID}`;

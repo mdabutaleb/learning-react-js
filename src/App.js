@@ -18,31 +18,35 @@ import MovieForm from "./projectComponent/movieForm";
 import Login from "./projectComponent/login";
 import RegisterForm from "./projectComponent/register/registerForm";
 
+const URL = process.env.REACT_APP_PUBLIC_URL
+
 class App extends Component {
     constructor(props) {
         super(props);
 
     }
     render() {
+      console.log(URL);
         return (
             <div>
                 <Navbar/>
                 <Switch>
-                    <Route path="/login" component={Login}/>
-                    <Route path="/register" component={RegisterForm}/>
-                    <Route path="/admin" component={Dashboard}/>
-                    <Route path="/products/:id" component={ProductDetails}/>
-                    <Route path="/products" render={(props) => <Products {...props}/>}/>
-                    <Route path="/posts/:year/:month?" render={(props) => <PostDetails {...props}/>}/>
-                    {/*<Route path="/posts" render={(props) => <Pos {...props}/>}/>*/}
+                    <Route path={`${URL}/login`} component={Login}/>
+                    <Route path={`${URL}/register`} component={RegisterForm}/>
+                    <Route path={`${URL}/admin`} component={Dashboard}/>
+                    {/*<Route path="/admin" component={Dashboard}/>*/}
+                    <Route path={`${URL}/products/:id`} component={ProductDetails}/>
+                    <Route path={`${URL}/products`} render={(props) => <Products {...props}/>}/>
+                    <Route path={`${URL}/posts/:year/:month?`} render={(props) => <PostDetails {...props}/>}/>
                     {/*<Route path="/movies/:id" exact render={(props) => <MovieForm {...props}/>}/>*/}
-                    <Route path="/movies/create/:id?"  render={(props) => <MovieForm {...props}/>}/>
-                    <Route path="/movies" render={(props) => <Movies {...props}/>}/>
-                    <Route path="/increment-app" component={IncrementApp}/>
-                    <Redirect from="/test" to="movies"/>
-                    <Route path="/404" component={NotFound}/>
-                    <Route path="/" exact component={Home}/>
-                    <Redirect to="/404"/>
+                    <Route path={`${URL}/movies/create/:id?`}  render={(props) => <MovieForm {...props}/>}/>
+                    <Route path={`${URL}/movies`} render={(props) => <Movies {...props}/>}/>
+                    <Route path={`${URL}/increment-app`} component={IncrementApp}/>
+                    <Redirect from={`${URL}/test`} to="movies"/>
+                    <Route path={`${URL}/404`} component={NotFound}/>
+                    <Route path={`${URL}/`} exact component={Home}/>
+                    <Route path={`${URL}/hr`} exact component={Home}/>
+                    <Redirect to={`${URL}/404`}/>
                 </Switch>
             </div>
 

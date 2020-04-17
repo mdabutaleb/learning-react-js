@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Link, NavLink} from "react-router-dom";
-
+const URL = process.env.REACT_APP_PUBLIC_URL
 const Navbar = (props) => {
 
     return (
@@ -14,22 +14,22 @@ const Navbar = (props) => {
                 <div className="collapse navbar-collapse col-md-10" id="navbarNav">
                     <ul className="navbar-nav">
                         <li className="nav-item">
-                            <NavLink className="nav-link" to="/admin">Admin |</NavLink>
+                            <NavLink className="nav-link" to={`${URL}/admin`}>Admin |</NavLink>
                         </li>
                         <li className="nav-item">
-                            <NavLink className="nav-link" to="/movies">Movies |</NavLink>
+                            <NavLink className="nav-link" to={`${URL}/movies`}>Movies |</NavLink>
                         </li>
                         <li className="nav-item">
-                            <NavLink className="nav-link" to="/products">Products |</NavLink>
+                            <NavLink className="nav-link" to={`${URL}/products`}>Products |</NavLink>
                         </li>
                         <li className="nav-item">
-                            <NavLink className="nav-link" to="/increment-app">Increment App |</NavLink>
+                            <NavLink className="nav-link" to={`${URL}/increment-app`}>Increment App |</NavLink>
                         </li>
                         <li className="nav-item">
-                            <NavLink className="nav-link" to="/posts">Posts |</NavLink>
+                            <NavLink className="nav-link" to={`${URL}/posts`}>Posts |</NavLink>
                         </li>
                         <li className="nav-item">
-                            <NavLink className="nav-link" to="/contact-us">Contact Us |</NavLink>
+                            <NavLink className="nav-link" to={`${URL}/contact-us`}>Contact Us |</NavLink>
                         </li>
 
                     </ul>
@@ -37,10 +37,10 @@ const Navbar = (props) => {
                 <div className="collapse navbar-collapse col-md-2" id="navbarNav">
                     <ul className="navbar-nav">
                         <li className="nav-item">
-                            <NavLink className="nav-link" to="/login">Login</NavLink>
+                            <NavLink className="nav-link" to={`${URL}/login`}>Login</NavLink>
                         </li>
                         <li className="nav-item">
-                            <NavLink className="nav-link" to="/register">Register</NavLink>
+                            <NavLink className="nav-link" to={`${URL}/admin`}>Register</NavLink>
                         </li>
                     </ul>
                 </div>

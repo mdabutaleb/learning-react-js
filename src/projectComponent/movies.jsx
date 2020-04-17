@@ -6,6 +6,7 @@ import {paginate} from "../utilis/paginate"
 import {getMovies, deleteMovies} from "../services/movieServices";
 import {toast, ToastContainer} from "react-toastify";
 
+const URL = process.env.REACT_APP_PUBLIC_URL
 
 // import MovieList from "./movieList";
 
@@ -73,7 +74,7 @@ class Movies extends Component {
                 <div className="container">
                     <div className="starter-template">
                         {this.movieCount()}
-                        <NavLink className="nav-link" to="/movies/create">
+                        <NavLink className="nav-link" to={`${URL}/movies/create`}>
                             <button className="btn btn-primary btn-sm">Add New</button>
                         </NavLink>
                         <table className="table">
@@ -92,7 +93,7 @@ class Movies extends Component {
                                 movies.map(movie =>
                                     <tr key={movie._id}>
                                         <td>
-                                            <Link to={`/movies/create/${movie._id}`}>{movie.title}</Link>
+                                            <Link to={`${URL}/movies/create/${movie._id}`}>{movie.title}</Link>
                                         </td>
                                         <td>{movie.genre.name}</td>
                                         <td>{movie.numberInStock}</td>
