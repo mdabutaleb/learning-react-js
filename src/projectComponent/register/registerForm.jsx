@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Joi from "joi";
 import CommonForm from "./commonForm";
-import * as resister from "../../services/registerServices";
+import * as userServices from "../../services/userServices";
 import {toast, ToastContainer} from "react-toastify";
 
 const URL = process.env.REACT_APP_PUBLIC_URL
@@ -22,9 +22,9 @@ class RegisterForm extends CommonForm {
         password: Joi.string().min(8).max(30).required().label("Password"),
     }
 
-    async doSubmit() {
+    doSubmit = async () => {
         try {
-            const response = await resister.register(this.state.data);
+            const response = await userServices.register(this.state.data);
             if (response && response.status == 200) {
                 toast.success('User Saved Successfully!')
                 this.props.history.push(`${URL}/`)
@@ -32,7 +32,10 @@ class RegisterForm extends CommonForm {
 
         } catch (e) {
             if (e.response && e.response.status === 400) {
-                toast.error(e.response.data);
+                const errors = {...this.state.errors};
+                errors.email = e.response.data;
+                this.setState({errors})
+                // toast.error(e.response.data);
             }
         }
 

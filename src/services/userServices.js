@@ -1,5 +1,4 @@
 import http from "./httpService";
-
 const apiEndPoint = process.env.REACT_APP_API_URL;
 
 function userURL(userId) {

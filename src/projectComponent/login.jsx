@@ -1,24 +1,36 @@
 import React, {Component} from 'react';
-import Input from "./common/input";
 import Joy from "joi";
-import Form from "./common/form";
-
-class Login extends Form {
+import CommonForm from "./register/commonForm";
+import {login} from "../services/authServices";
+const URL = process.env.REACT_APP_PUBLIC_URL
+class Login extends CommonForm {
 
     constructor(props) {
         super(props);
         this.state = {
-            data: {username: '', password: ''},
+            data: {email: '', password: ''},
             errors: {}
         }
     }
 
     schema = {
-        username: Joy.string().required().label("Username"),
+        email: Joy.string().required().label("Email"),
         password: Joy.string().required().label("Password"),
     }
 
-    doSubmit = () => {
+    doSubmit = async () => {
+        try {
+            const response = await login(this.state.data.email, this.state.data.password);
+            localStorage.setItem('token', response.data)
+            this.props.history.push(`${URL}/admin`)
+        } catch (e) {
+            if (e.response){
+                const errors = {...this.state.errors}
+                errors.password = e.response.data
+                this.setState({errors})
+            }
+
+        }
         console.log('Submitted!')
     }
 
@@ -26,9 +38,9 @@ class Login extends Form {
         return (
             <div className="col-md-4 offset-4 mt-5">
                 <form onSubmit={this.handleSubmit}>
-                    {this.renderInput('username', 'Username')}
+                    {this.renderInput('email', 'Email')}
                     {this.renderInput('password', 'Password', 'password')}
-                    {this.renderButton("Login")}
+                    {this.renderSubmitButton("Login")}
                 </form>
             </div>
         );
