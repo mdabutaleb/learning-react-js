@@ -1,10 +1,8 @@
-import React, {Component} from 'react';
+import React from 'react';
 import Form from "./common/form";
 import * as movie from "../services/movieServices"
-import Input from "./common/input";
 import Joi from "joi";
 import {toast} from "react-toastify";
-import Select from "./common/select";
 
 const URL = process.env.REACT_APP_PUBLIC_URL
 class MovieForm extends Form {

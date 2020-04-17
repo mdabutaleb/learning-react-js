@@ -1,7 +1,10 @@
 import React, {Component} from 'react';
 import Joi from "joi";
 import CommonForm from "./commonForm";
-import CommonInput from "./commonInput";
+import * as resister from "../../services/registerServices";
+import {toast, ToastContainer} from "react-toastify";
+
+const URL = process.env.REACT_APP_PUBLIC_URL
 
 class RegisterForm extends CommonForm {
     state = {
@@ -14,26 +17,41 @@ class RegisterForm extends CommonForm {
     }
 
     schema = {
-        name: Joi.string().min(5).max(20).required().label("Name"),
+        name: Joi.string().min(3).max(20).required().label("Name"),
         email: Joi.string().email().min(4).max(30).required().label("Email"),
         password: Joi.string().min(8).max(30).required().label("Password"),
     }
 
-    doSubmit() {
-        console.log('Submitted!')
+    async doSubmit() {
+        try {
+            const response = await resister.register(this.state.data);
+            if (response && response.status == 200) {
+                toast.success('User Saved Successfully!')
+                this.props.history.push(`${URL}/`)
+            }
+
+        } catch (e) {
+            if (e.response && e.response.status === 400) {
+                toast.error(e.response.data);
+            }
+        }
+
     }
 
 
     render() {
         return (
-            <div className="col-md-4 offset-4 mt-5">
-                <form onSubmit={this.handleSubmit}>
-                    {this.renderInput('name', 'Name', 'text')}
-                    {this.renderInput('email', 'email', 'email')}
-                    {this.renderInput('password', 'Password', 'password')}
-                    {this.renderSubmitButton('Submit')}
-                </form>
-            </div>
+            <>
+                <ToastContainer/>
+                <div className="col-md-4 offset-4 mt-5">
+                    <form onSubmit={this.handleSubmit}>
+                        {this.renderInput('name', 'Name', 'text')}
+                        {this.renderInput('email', 'email', 'email')}
+                        {this.renderInput('password', 'Password', 'password')}
+                        {this.renderSubmitButton('Submit')}
+                    </form>
+                </div>
+            </>
         );
     }
 }

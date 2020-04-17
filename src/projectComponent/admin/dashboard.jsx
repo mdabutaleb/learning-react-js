@@ -3,11 +3,13 @@ import Sidebar from "./sidebar";
 import {Route, Switch} from "react-router-dom";
 import Users from "./users/users";
 import Posts from "./posts/posts";
+import {ToastContainer} from "react-toastify";
 
 class Dashboard extends Component {
     render() {
         return (
             <>
+                <ToastContainer/>
                 <h1 className="m-2"> Admin Panel</h1>
                 <div className="row">
                     <div className="col-md-3">
