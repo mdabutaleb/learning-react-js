@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import {Link, NavLink} from "react-router-dom";
+
 const URL = process.env.REACT_APP_PUBLIC_URL
-const Navbar = (props) => {
+const Navbar = ({user}) => {
 
     return (
         <React.Fragment>
@@ -11,7 +12,7 @@ const Navbar = (props) => {
                         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
-                <div className="collapse navbar-collapse col-md-10" id="navbarNav">
+                <div className="collapse navbar-collapse col-md-9" id="navbarNav">
                     <ul className="navbar-nav">
                         <li className="nav-item">
                             <NavLink className="nav-link" to={`${URL}/admin`}>Admin |</NavLink>
@@ -34,14 +35,28 @@ const Navbar = (props) => {
 
                     </ul>
                 </div>
-                <div className="collapse navbar-collapse col-md-2" id="navbarNav">
+                <div className="collapse navbar-collapse col-md-3" id="navbarNav">
                     <ul className="navbar-nav">
-                        <li className="nav-item">
-                            <NavLink className="nav-link" to={`${URL}/login`}>Login</NavLink>
-                        </li>
-                        <li className="nav-item">
-                            <NavLink className="nav-link" to={`${URL}/register`}>Register</NavLink>
-                        </li>
+                        {user && (
+                            <>
+                                <li className="nav-item">
+                                   <p className="nav-link">Welcome, {user.name}</p>
+                                </li>
+                                <li className="nav-item">
+                                    <NavLink className="nav-link" to={`${URL}/logout`}>Logout</NavLink>
+                                </li>
+                            </>
+                        )}
+                        {!user && (
+                            <>
+                                <li className="nav-item">
+                                    <NavLink className="nav-link" to={`${URL}/login`}>Login</NavLink>
+                                </li>
+                                <li className="nav-item">
+                                    <NavLink className="nav-link" to={`${URL}/register`}>Register</NavLink>
+                                </li>
+                            </>
+                        )}
                     </ul>
                 </div>
             </nav>

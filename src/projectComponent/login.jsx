@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
 import Joy from "joi";
 import CommonForm from "./register/commonForm";
-import {login} from "../services/authServices";
+import auth from "../services/authServices";
+
 const URL = process.env.REACT_APP_PUBLIC_URL
+
 class Login extends CommonForm {
 
     constructor(props) {
@@ -20,11 +22,10 @@ class Login extends CommonForm {
 
     doSubmit = async () => {
         try {
-            const response = await login(this.state.data.email, this.state.data.password);
-            localStorage.setItem('token', response.data)
-            this.props.history.push(`${URL}/admin`)
+            const response = await auth.login(this.state.data.email, this.state.data.password);
+            window.location = URL+'/admin';
         } catch (e) {
-            if (e.response){
+            if (e.response) {
                 const errors = {...this.state.errors}
                 errors.password = e.response.data
                 this.setState({errors})

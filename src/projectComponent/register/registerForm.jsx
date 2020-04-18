@@ -3,6 +3,7 @@ import Joi from "joi";
 import CommonForm from "./commonForm";
 import * as userServices from "../../services/userServices";
 import {toast, ToastContainer} from "react-toastify";
+import auth from "../../services/authServices";
 
 const URL = process.env.REACT_APP_PUBLIC_URL
 
@@ -25,19 +26,14 @@ class RegisterForm extends CommonForm {
     doSubmit = async () => {
         try {
             const response = await userServices.register(this.state.data);
-            // console.log(response.headers);
-           localStorage.setItem('token', response.headers['x-auth-token'])
-            if (response && response.status == 200) {
-                toast.success('User Saved Successfully!')
-                this.props.history.push(`${URL}/`)
-            }
-
+            console.log(response);
+            auth.loginWithJwt(response.headers['x-auth-token'])
+            window.location = URL + '/admin';
         } catch (e) {
             if (e.response && e.response.status === 400) {
                 const errors = {...this.state.errors};
                 errors.email = e.response.data;
                 this.setState({errors})
-                // toast.error(e.response.data);
             }
         }
 
