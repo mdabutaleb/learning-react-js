@@ -25,6 +25,8 @@ class RegisterForm extends CommonForm {
     doSubmit = async () => {
         try {
             const response = await userServices.register(this.state.data);
+            // console.log(response.headers);
+           localStorage.setItem('token', response.headers['x-auth-token'])
             if (response && response.status == 200) {
                 toast.success('User Saved Successfully!')
                 this.props.history.push(`${URL}/`)
