@@ -67,18 +67,22 @@ class Movies extends Component {
     }
 
     render() {
+        const {user} = this.props
         const {itemPerPage, currentPage, movies: allMovies} = this.state;
         const movies = paginate(allMovies, currentPage, itemPerPage)
-        // console.log(movies)
         return (
             <>
                 <ToastContainer/>
                 <div className="container">
                     <div className="starter-template">
                         {this.movieCount()}
-                        <NavLink className="nav-link" to={`${URL}/movies/create`}>
-                            <button className="btn btn-primary btn-sm">Add New</button>
-                        </NavLink>
+                        {user && (
+                            <NavLink className="nav-link" to={`${URL}/movies/create`}>
+                                <button className="btn btn-primary btn-sm">Add New</button>
+                            </NavLink>
+                        )
+                        }
+
                         <table className="table">
                             <thead>
                             <tr>

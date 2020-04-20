@@ -41,13 +41,11 @@ class App extends Component {
                     <Route path={`${URL}/logout`} component={Logout}/>
                     <Route path={`${URL}/register`} component={RegisterForm}/>
                     <Route path={`${URL}/admin`} component={Dashboard}/>
-                    {/*<Route path="/admin" component={Dashboard}/>*/}
                     <Route path={`${URL}/products/:id`} component={ProductDetails}/>
                     <Route path={`${URL}/products`} render={(props) => <Products {...props}/>}/>
                     <Route path={`${URL}/posts/:year/:month?`} render={(props) => <PostDetails {...props}/>}/>
-                    {/*<Route path="/movies/:id" exact render={(props) => <MovieForm {...props}/>}/>*/}
                     <Route path={`${URL}/movies/create/:id?`} render={(props) => <MovieForm {...props}/>}/>
-                    <Route path={`${URL}/movies`} render={(props) => <Movies {...props}/>}/>
+                    <Route path={`${URL}/movies`} render={(props) => <Movies {...props} user={this.state.user}/>}/>
                     <Route path={`${URL}/increment-app`} component={IncrementApp}/>
                     <Redirect from={`${URL}/test`} to="movies"/>
                     <Route path={`${URL}/404`} component={NotFound}/>
