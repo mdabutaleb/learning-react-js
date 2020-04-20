@@ -31,6 +31,6 @@ export function getGenre() {
 }
 
 export function deleteMovies(movieID) {
-    return http.delete(movieUrl(movieID))
+    return  http.delete(movieUrl(movieID));
 }
 

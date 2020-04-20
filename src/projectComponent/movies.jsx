@@ -39,6 +39,8 @@ class Movies extends Component {
                 toast.success('Successfully Deleted!');
             }
         } catch (e) {
+            console.log(e.response);
+            toast.error('Something going wrong!');
             this.setState({movies: originalMovies})
         }
     }

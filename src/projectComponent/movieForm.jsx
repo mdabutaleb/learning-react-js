@@ -62,6 +62,7 @@ class MovieForm extends Form {
     async doSubmit() {
         try {
             const response = await movie.saveMovie(this.state.data);
+            console.log(response);
             if (response.status === 200) {
                 toast.success('Movie Saved Successfully!')
                 this.props.history.push(`${URL}/movies`)

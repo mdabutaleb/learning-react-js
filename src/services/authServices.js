@@ -3,24 +3,26 @@ import jwtDecode from "jwt-decode";
 
 const apiEndPoint = process.env.REACT_APP_API_URL;
 
-const appKey = 'token';
+const tokenKey = 'token';
+
+http.setJwt(getJwt());
 
 async function login(email, password) {
     const {data: jwt} = await http.post(apiEndPoint + '/auth', {email, password})
-    localStorage.setItem(appKey, jwt)
+    localStorage.setItem(tokenKey, jwt)
 }
 
 function loginWithJwt(jwt) {
-    localStorage.setItem(appKey, jwt);
+    localStorage.setItem(tokenKey, jwt);
 }
 
 async function logout() {
-    localStorage.removeItem(appKey);
+    localStorage.removeItem(tokenKey);
 }
 
 function getCurrentUser() {
     try {
-        const jwt = localStorage.getItem(appKey);
+        const jwt = localStorage.getItem(tokenKey);
         return jwtDecode(jwt);
     } catch (e) {
         return null;
@@ -28,9 +30,14 @@ function getCurrentUser() {
 
 }
 
+function getJwt() {
+    return localStorage.getItem(tokenKey);
+}
+
 export default {
     login,
     loginWithJwt,
     logout,
-    getCurrentUser
+    getCurrentUser,
+    getJwt
 }
