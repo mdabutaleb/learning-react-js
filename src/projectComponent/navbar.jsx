@@ -12,7 +12,7 @@ const Navbar = ({user}) => {
                         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
-                <div className="collapse navbar-collapse col-md-9" id="navbarNav">
+                <div className="collapse navbar-collapse col-md-8" id="navbarNav">
                     <ul className="navbar-nav">
                         <li className="nav-item">
                             <NavLink className="nav-link" to={`${URL}/admin`}>Admin |</NavLink>
@@ -35,7 +35,7 @@ const Navbar = ({user}) => {
 
                     </ul>
                 </div>
-                <div className="collapse navbar-collapse col-md-3" id="navbarNav">
+                <div className="collapse navbar-collapse col-md-4" id="navbarNav">
                     <ul className="navbar-nav">
                         {user && (
                             <>

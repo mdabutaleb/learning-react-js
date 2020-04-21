@@ -91,7 +91,9 @@ class Movies extends Component {
                                 <th scope="col">Stock</th>
                                 <th scope="col">Rate</th>
                                 <th scope="col">Like</th>
+                                {(user.isAdmin) &&
                                 <th scope="col">Action</th>
+                                }
                             </tr>
                             </thead>
                             <tbody>
@@ -107,9 +109,13 @@ class Movies extends Component {
                                         {/*<td> <i className="fa fa-heart" aria-hidden="true    " role="button" style={{cursor: 'pointer'}}></i></td>*/}
                                         <td><Liked liked={movie.liked} onLiked={() => this.handleLiked(movie)}/></td>
                                         <td>
-                                            <button onClick={() => this.handleDelete(movie._id)}
-                                                    className="btn btn-danger">Delete
-                                            </button>
+                                            {(user.isAdmin) &&
+                                            (
+                                                <button onClick={() => this.handleDelete(movie._id)}
+                                                        className="btn btn-danger">Delete
+                                                </button>
+                                            )
+                                            }
                                         </td>
                                     </tr>
                                 )

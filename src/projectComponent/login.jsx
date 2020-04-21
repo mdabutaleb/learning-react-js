@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import Joy from "joi";
 import CommonForm from "./register/commonForm";
 import auth from "../services/authServices";
+import RefDemo from "../Components/RefDemo";
+import {Redirect} from "react-router-dom";
 
 const URL = process.env.REACT_APP_PUBLIC_URL
 
@@ -22,8 +24,9 @@ class Login extends CommonForm {
 
     doSubmit = async () => {
         try {
-            const response = await auth.login(this.state.data.email, this.state.data.password);
-            window.location = URL+'/admin';
+            await auth.login(this.state.data.email, this.state.data.password);
+            const {state} = this.props.location
+            window.location = URL + (state) ? state.from.pathname : '/admin';
         } catch (e) {
             if (e.response) {
                 const errors = {...this.state.errors}
@@ -32,10 +35,10 @@ class Login extends CommonForm {
             }
 
         }
-        console.log('Submitted!')
     }
 
     render() {
+        if (auth.getCurrentUser()) return <Redirect to={`${URL}/admin`}/>
         return (
             <div className="col-md-4 offset-4 mt-5">
                 <form onSubmit={this.handleSubmit}>
