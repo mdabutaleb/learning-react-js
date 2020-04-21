@@ -13,10 +13,12 @@ import MovieForm from "./projectComponent/movieForm";
 import Login from "./projectComponent/login";
 import RegisterForm from "./projectComponent/register/registerForm";
 import auth from "../src/services/authServices";
+import Logout from "./projectComponent/logout";
+
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.css'
 import 'font-awesome/css/font-awesome.css'
-import Logout from "./projectComponent/logout";
+
 
 const URL = process.env.REACT_APP_PUBLIC_URL
 
@@ -33,9 +35,10 @@ class App extends Component {
     }
 
     render() {
+        const user = auth.getCurrentUser();
         return (
             <div>
-                <Navbar user={this.state.user}/>
+                <Navbar user={user}/>
                 <Switch>
                     <Route path={`${URL}/login`} component={Login}/>
                     <Route path={`${URL}/logout`} component={Logout}/>
@@ -44,7 +47,14 @@ class App extends Component {
                     <Route path={`${URL}/products/:id`} component={ProductDetails}/>
                     <Route path={`${URL}/products`} render={(props) => <Products {...props}/>}/>
                     <Route path={`${URL}/posts/:year/:month?`} render={(props) => <PostDetails {...props}/>}/>
-                    <Route path={`${URL}/movies/create/:id?`} render={(props) => <MovieForm {...props}/>}/>
+
+                    {/*<Route path={`${URL}/movies/create/:id?`} render={(props) => <MovieForm {...props}/>}/>*/}
+                    <Route path={`${URL}/movies/create/:id?`} render={
+                        (props) => {
+                            if (!user) return <Redirect to="/login"/>;
+                            return <MovieForm {...props}/>;
+                        }}/>
+
                     <Route path={`${URL}/movies`} render={(props) => <Movies {...props} user={this.state.user}/>}/>
                     <Route path={`${URL}/increment-app`} component={IncrementApp}/>
                     <Redirect from={`${URL}/test`} to="movies"/>
