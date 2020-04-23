@@ -3,18 +3,21 @@ import Liked from "./liked";
 import {Link, NavLink} from "react-router-dom";
 import PaginationButton from "../utilis/paginationButton";
 import {paginate} from "../utilis/paginate"
-import {getMovies, deleteMovies} from "../services/movieServices";
+import {getMovies, getGenre, deleteMovies} from "../services/movieServices";
 import {toast, ToastContainer} from "react-toastify";
+import auth from "../services/authServices";
+import ListGroup from "./common/listGroup";
 
 const URL = process.env.REACT_APP_PUBLIC_URL
 
-// import MovieList from "./movieList";
 
 class Movies extends Component {
     constructor(props) {
         super(props);
         this.state = {
             movies: [],
+            genres: [],
+            selectedGenre: "",
             itemPerPage: 4,
             totalItem: 10,
             currentPage: 1,
@@ -22,8 +25,10 @@ class Movies extends Component {
     }
 
     async componentDidMount() {
-        const {data} = await getMovies()
-        this.setState({movies: data})
+        const {data} = await getGenre()
+        const genres = [{_id: "", name: "All genres"}, ...data]
+        const {data: movies} = await getMovies()
+        this.setState({movies, genres})
     }
 
     handleDelete = async (movieId) => {
@@ -66,68 +71,88 @@ class Movies extends Component {
         })
     }
 
+    handleSelected = (genre) => {
+        this.setState({selectedGenre: genre, currentPage: 1})
+    }
+
+
     render() {
-        const {user} = this.props
-        const {itemPerPage, currentPage, movies: allMovies} = this.state;
-        const movies = paginate(allMovies, currentPage, itemPerPage)
+        const user = auth.getCurrentUser();
+        const {itemPerPage, currentPage, movies: allMovies, genres, selectedGenre} = this.state;
+
+        const filteredMovies = selectedGenre && selectedGenre._id
+            ? allMovies.filter(movie => movie.genre._id === selectedGenre._id)
+            : allMovies;
+
+        const movies = paginate(filteredMovies, currentPage, itemPerPage)
         return (
             <>
                 <ToastContainer/>
                 <div className="container">
-                    <div className="starter-template">
-                        {this.movieCount()}
-                        {user && (
-                            <NavLink className="nav-link" to={`${URL}/movies/create`}>
-                                <button className="btn btn-primary btn-sm">Add New</button>
-                            </NavLink>
-                        )
-                        }
-
-                        <table className="table">
-                            <thead>
-                            <tr>
-                                <th scope="col">Title</th>
-                                <th scope="col">Genre</th>
-                                <th scope="col">Stock</th>
-                                <th scope="col">Rate</th>
-                                <th scope="col">Like</th>
-                                {(user.isAdmin) &&
-                                <th scope="col">Action</th>
-                                }
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {
-                                movies.map(movie =>
-                                    <tr key={movie._id}>
-                                        <td>
-                                            <Link to={`${URL}/movies/create/${movie._id}`}>{movie.title}</Link>
-                                        </td>
-                                        <td>{movie.genre.name}</td>
-                                        <td>{movie.numberInStock}</td>
-                                        <td>{movie.dailyRentalRate}</td>
-                                        {/*<td> <i className="fa fa-heart" aria-hidden="true    " role="button" style={{cursor: 'pointer'}}></i></td>*/}
-                                        <td><Liked liked={movie.liked} onLiked={() => this.handleLiked(movie)}/></td>
-                                        <td>
-                                            {(user.isAdmin) &&
-                                            (
-                                                <button onClick={() => this.handleDelete(movie._id)}
-                                                        className="btn btn-danger">Delete
-                                                </button>
-                                            )
-                                            }
-                                        </td>
-                                    </tr>
-                                )
+                    <div className="row">
+                        <div className="col-3">
+                            <ListGroup
+                                genres={genres}
+                                handleSelected={this.handleSelected}
+                                selectedItem={selectedGenre}
+                            />
+                        </div>
+                        <div className="col">
+                            {this.movieCount()}
+                            {user && (
+                                <NavLink className="nav-link" to={`${URL}/movies/create`}>
+                                    <button className="btn btn-primary btn-sm">Add New</button>
+                                </NavLink>
+                            )
                             }
-                            </tbody>
-                        </table>
-                        <PaginationButton
-                            itemPerPage={itemPerPage}
-                            totalItem={this.state.movies.length}
-                            currentPage={currentPage}
-                            onPageChange={this.handlePagination}
-                        />
+
+                            <table className="table">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Title</th>
+                                    <th scope="col">Genre</th>
+                                    <th scope="col">Stock</th>
+                                    <th scope="col">Rate</th>
+                                    <th scope="col">Like</th>
+                                    {(user.isAdmin) &&
+                                    <th scope="col">Action</th>
+                                    }
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {
+                                    movies.map(movie =>
+                                        <tr key={movie._id}>
+                                            <td>
+                                                <Link to={`${URL}/movies/create/${movie._id}`}>{movie.title}</Link>
+                                            </td>
+                                            <td>{movie.genre.name}</td>
+                                            <td>{movie.numberInStock}</td>
+                                            <td>{movie.dailyRentalRate}</td>
+                                            {/*<td> <i className="fa fa-heart" aria-hidden="true    " role="button" style={{cursor: 'pointer'}}></i></td>*/}
+                                            <td><Liked liked={movie.liked} onLiked={() => this.handleLiked(movie)}/>
+                                            </td>
+                                            <td>
+                                                {(user.isAdmin) &&
+                                                (
+                                                    <button onClick={() => this.handleDelete(movie._id)}
+                                                            className="btn btn-danger">Delete
+                                                    </button>
+                                                )
+                                                }
+                                            </td>
+                                        </tr>
+                                    )
+                                }
+                                </tbody>
+                            </table>
+                            <PaginationButton
+                                itemPerPage={itemPerPage}
+                                totalItem={filteredMovies.length}
+                                currentPage={currentPage}
+                                onPageChange={this.handlePagination}
+                            />
+                        </div>
                     </div>
                 </div>
 

@@ -52,7 +52,7 @@ class App extends Component {
 
                     <ProtectedRoute  path={`${URL}/movies/create/:id?`} component={MovieForm}/>
 
-                    <ProtectedRoute path={`${URL}/movies`} render={(props) => <Movies {...props} user={user}/>}/>
+                    <ProtectedRoute path={`${URL}/movies`} render={(props) => <Movies {...props}/>}/>
                     <ProtectedRoute path={`${URL}/increment-app`} component={IncrementApp}/>
                     <Redirect from={`${URL}/test`} to="movies"/>
                     <Route path={`${URL}/404`} component={NotFound}/>

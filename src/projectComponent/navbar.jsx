@@ -35,7 +35,7 @@ const Navbar = ({user}) => {
 
                     </ul>
                 </div>
-                <div className="collapse navbar-collapse col-md-4" id="navbarNav">
+                <div className="collapse navbar-collapse col" id="navbarNav">
                     <ul className="navbar-nav">
                         {user && (
                             <>
