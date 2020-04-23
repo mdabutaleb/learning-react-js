@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import Liked from "./liked";
 import {Link, NavLink} from "react-router-dom";
 import PaginationButton from "../utilis/paginationButton";
 import {paginate} from "../utilis/paginate"
@@ -7,6 +6,7 @@ import {getMovies, getGenre, deleteMovies} from "../services/movieServices";
 import {toast, ToastContainer} from "react-toastify";
 import auth from "../services/authServices";
 import ListGroup from "./common/listGroup";
+import MoviesTable from "./moviesTable";
 
 const URL = process.env.REACT_APP_PUBLIC_URL
 
@@ -99,53 +99,12 @@ class Movies extends Component {
                         </div>
                         <div className="col">
                             {this.movieCount()}
-                            {user && (
-                                <NavLink className="nav-link" to={`${URL}/movies/create`}>
-                                    <button className="btn btn-primary btn-sm">Add New</button>
-                                </NavLink>
-                            )
-                            }
 
-                            <table className="table">
-                                <thead>
-                                <tr>
-                                    <th scope="col">Title</th>
-                                    <th scope="col">Genre</th>
-                                    <th scope="col">Stock</th>
-                                    <th scope="col">Rate</th>
-                                    <th scope="col">Like</th>
-                                    {(user.isAdmin) &&
-                                    <th scope="col">Action</th>
-                                    }
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {
-                                    movies.map(movie =>
-                                        <tr key={movie._id}>
-                                            <td>
-                                                <Link to={`${URL}/movies/create/${movie._id}`}>{movie.title}</Link>
-                                            </td>
-                                            <td>{movie.genre.name}</td>
-                                            <td>{movie.numberInStock}</td>
-                                            <td>{movie.dailyRentalRate}</td>
-                                            {/*<td> <i className="fa fa-heart" aria-hidden="true    " role="button" style={{cursor: 'pointer'}}></i></td>*/}
-                                            <td><Liked liked={movie.liked} onLiked={() => this.handleLiked(movie)}/>
-                                            </td>
-                                            <td>
-                                                {(user.isAdmin) &&
-                                                (
-                                                    <button onClick={() => this.handleDelete(movie._id)}
-                                                            className="btn btn-danger">Delete
-                                                    </button>
-                                                )
-                                                }
-                                            </td>
-                                        </tr>
-                                    )
-                                }
-                                </tbody>
-                            </table>
+                            <MoviesTable
+                                movies={movies}
+                                onLiked={this.handleLiked}
+                                onDelete={this.handleDelete}
+                            />
                             <PaginationButton
                                 itemPerPage={itemPerPage}
                                 totalItem={filteredMovies.length}
