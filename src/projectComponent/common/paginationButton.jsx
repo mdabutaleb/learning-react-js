@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import PropType from 'prop-types'
 import _ from "lodash";
 
@@ -12,8 +12,8 @@ const PaginationButton = props => {
         <nav aria-label="...">
             <ul className="pagination pagination-sm">
                 {pages.map(page => (
-                    <li className={page == currentPage ? 'page-item active' : 'page-item'} key={page}>
-                        <a className="page-link active" href="#" onClick={() => onPageChange(page)}>{page}</a>
+                    <li className={page === currentPage ? 'page-item active' : 'page-item'} key={page}>
+                        <button className="page-link active" onClick={() => onPageChange(page)}>{page}</button>
                     </li>
                 ))}
 

@@ -17,7 +17,7 @@ class ProductDetails extends Component {
                     <p>It uses utility classes for typography and spacing to space content out within the larger
                         container.</p>
                     <p className="lead">
-                        <button onClick={this.handleSave} className="btn btn-primary btn-lg" role="button">Save</button>
+                        {/*<button onClick={this.handleSave} className="btn btn-primary btn-lg" role="button">Save</button>*/}
                     </p>
                 </div>
             </div>

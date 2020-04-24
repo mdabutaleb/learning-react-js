@@ -1,25 +1,32 @@
 import React, {Component} from 'react';
-import {Link, NavLink} from "react-router-dom";
+import { NavLink} from "react-router-dom";
 import Liked from "./liked";
 import auth from "../services/authServices";
+import TableHeader from "./common/tableHeader";
+import TableBody from "./common/tableBody";
 
 const URL = process.env.REACT_APP_PUBLIC_URL
 
 class MoviesTable extends Component {
 
-    raiseSort = path => {
-        const sortColumn = {...this.props.sortColumn}
-        if (sortColumn.path === path)
-            sortColumn.order = (sortColumn.order === 'asc') ? 'desc' : 'asc';
-        else {
-            sortColumn.path = path;
-            sortColumn.order = 'asc';
-        }
-        this.props.onSort(sortColumn);
-    }
+    columns = [
+        {path: 'title', label: 'Title'},
+        {path: 'genre.name', label: 'Genre'},
+        {path: 'numberInStock', label: 'In Stock'},
+        {path: 'dailyRentalRate', label: 'Daily Rental Rate'},
+        {
+            key: 'like',
+            content: movie => <Liked liked={movie.liked} onLiked={() => this.props.onLiked(movie)}/>
+        },
+        {
+            key: 'delete',
+            content: movie => <button onClick={() => this.props.onDelete(movie._id)} className="btn btn-danger">Delete</button>
+        },
+    ]
+
 
     render() {
-        const {movies, onLiked, onDelete} = this.props;
+        const {movies, onSort, sortColumn} = this.props;
         const user = auth.getCurrentUser();
 
         return (
@@ -31,44 +38,8 @@ class MoviesTable extends Component {
                 }
 
                 <table className="table">
-                    <thead>
-                    <tr>
-                        <th scope="col" onClick={() => this.raiseSort('title')}>Title</th>
-                        <th scope="col" onClick={() => this.raiseSort('genre.name')}>Genre</th>
-                        <th scope="col" onClick={() => this.raiseSort('numberInStock')}>Stock</th>
-                        <th scope="col" onClick={() => this.raiseSort('dailyRentalRate')}>Rate</th>
-                        <th scope="col"></th>
-                        {(user.isAdmin) &&
-                        <th scope="col"></th>
-                        }
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {
-                        movies.map(movie =>
-                            <tr key={movie._id}>
-                                <td>
-                                    <Link to={`${URL}/movies/create/${movie._id}`}>{movie.title}</Link>
-                                </td>
-                                <td>{movie.genre.name}</td>
-                                <td>{movie.numberInStock}</td>
-                                <td>{movie.dailyRentalRate}</td>
-                                {/*<td> <i className="fa fa-heart" aria-hidden="true    " role="button" style={{cursor: 'pointer'}}></i></td>*/}
-                                <td><Liked liked={movie.liked} onLiked={() => onLiked(movie)}/>
-                                </td>
-                                <td>
-                                    {(user.isAdmin) &&
-                                    (
-                                        <button onClick={() => onDelete(movie._id)}
-                                                className="btn btn-danger">Delete
-                                        </button>
-                                    )
-                                    }
-                                </td>
-                            </tr>
-                        )
-                    }
-                    </tbody>
+                    <TableHeader sortColumn={sortColumn} onSort={onSort} columns={this.columns}/>
+                    <TableBody data={movies} columns={this.columns}/>
                 </table>
             </>
         );

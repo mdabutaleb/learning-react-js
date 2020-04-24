@@ -1,8 +1,8 @@
-import React, {Component} from 'react';
+import React from 'react';
 import Joi from "joi";
 import CommonForm from "./commonForm";
 import * as userServices from "../../services/userServices";
-import {toast, ToastContainer} from "react-toastify";
+import { ToastContainer} from "react-toastify";
 import auth from "../../services/authServices";
 
 const URL = process.env.REACT_APP_PUBLIC_URL

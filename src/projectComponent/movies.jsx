@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import PaginationButton from "../utilis/paginationButton";
+import PaginationButton from "./common/paginationButton";
 import {paginate} from "../utilis/paginate"
 import {getMovies, getGenre, deleteMovies} from "../services/movieServices";
 import {toast, ToastContainer} from "react-toastify";

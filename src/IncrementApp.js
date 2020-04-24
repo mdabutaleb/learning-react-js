@@ -4,10 +4,6 @@ import 'bootstrap/dist/css/bootstrap.css'
 import Increments from "./projectComponent/increments";
 
 class IncrementApp extends Component {
-    constructor(props) {
-        super(props);
-    }
-
 
     state = {
         counters: [

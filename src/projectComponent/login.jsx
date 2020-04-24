@@ -1,8 +1,7 @@
-import React, {Component} from 'react';
+import React from 'react';
 import Joy from "joi";
 import CommonForm from "./register/commonForm";
 import auth from "../services/authServices";
-import RefDemo from "../Components/RefDemo";
 import {Redirect} from "react-router-dom";
 
 const URL = process.env.REACT_APP_PUBLIC_URL

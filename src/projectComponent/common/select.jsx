@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 
 const Select = ({label, name, error, options, ...rest}) => {
     return (

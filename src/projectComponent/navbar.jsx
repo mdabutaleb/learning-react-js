@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {Link, NavLink} from "react-router-dom";
 
 const URL = process.env.REACT_APP_PUBLIC_URL
