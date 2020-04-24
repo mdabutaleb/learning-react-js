@@ -1,15 +1,11 @@
 import React, {Component} from 'react';
-import {Link, NavLink} from "react-router-dom";
 import PaginationButton from "../utilis/paginationButton";
 import {paginate} from "../utilis/paginate"
 import {getMovies, getGenre, deleteMovies} from "../services/movieServices";
 import {toast, ToastContainer} from "react-toastify";
-import auth from "../services/authServices";
 import ListGroup from "./common/listGroup";
 import MoviesTable from "./moviesTable";
-
-const URL = process.env.REACT_APP_PUBLIC_URL
-
+import _ from 'lodash';
 
 class Movies extends Component {
     constructor(props) {
@@ -21,6 +17,7 @@ class Movies extends Component {
             itemPerPage: 4,
             totalItem: 10,
             currentPage: 1,
+            sortColumn: {path: "title", order: "asc"}
         }
     }
 
@@ -75,16 +72,21 @@ class Movies extends Component {
         this.setState({selectedGenre: genre, currentPage: 1})
     }
 
+    handleSort = sortColumn => {
+        this.setState({sortColumn})
+    }
+
 
     render() {
-        const user = auth.getCurrentUser();
-        const {itemPerPage, currentPage, movies: allMovies, genres, selectedGenre} = this.state;
+        const {itemPerPage, currentPage, movies: allMovies, genres, selectedGenre, sortColumn} = this.state;
 
         const filteredMovies = selectedGenre && selectedGenre._id
             ? allMovies.filter(movie => movie.genre._id === selectedGenre._id)
             : allMovies;
 
-        const movies = paginate(filteredMovies, currentPage, itemPerPage)
+        const sortedMovies = _.orderBy(filteredMovies, [sortColumn.path], [sortColumn.order])
+
+        const movies = paginate(sortedMovies, currentPage, itemPerPage)
         return (
             <>
                 <ToastContainer/>
@@ -102,8 +104,10 @@ class Movies extends Component {
 
                             <MoviesTable
                                 movies={movies}
+                                sortColumn={sortColumn}
                                 onLiked={this.handleLiked}
                                 onDelete={this.handleDelete}
+                                onSort={this.handleSort}
                             />
                             <PaginationButton
                                 itemPerPage={itemPerPage}
