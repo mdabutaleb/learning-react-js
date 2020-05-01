@@ -19,6 +19,14 @@ class MoviesTable extends Component {
             content: movie => <Liked liked={movie.liked} onLiked={() => this.props.onLiked(movie)}/>
         },
         {
+            key: 'edit',
+            content: movie => (
+                <NavLink className="" to={`${URL}/movies/create/${movie._id}`}>
+                    <button className="btn btn-primary">Edit</button>
+                 </NavLink>
+            )
+        },
+        {
             key: 'delete',
             content: movie => <button onClick={() => this.props.onDelete(movie._id)}
                                       className="btn btn-danger">Delete</button>
