@@ -21,7 +21,10 @@ class TableBody extends Component {
                     <tr key={item._id}>
                         {
                             columns.map(column => (
-                                <td key={this.createKey(item, column)}>{this.renderCell(item, column)}</td>
+                                <td key={this.createKey(item, column)}>
+                                    {this.renderCell(item, column)}
+
+                                </td>
                             ))
                         }
                     </tr>
