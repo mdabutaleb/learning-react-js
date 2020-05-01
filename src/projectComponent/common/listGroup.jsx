@@ -9,7 +9,7 @@ const ListGroup = (props) => {
                 <li
                     key={genre[valueProperty]}
                     onClick={() => handleSelected(genre)}
-                    className={genre === selectedItem  ? "list-group-item active" : "list-group-item"}>
+                    className={genre === selectedItem  ? "list-group-item clickable active" : "list-group-item clickable"}>
                     {genre[textProperty]}
                 </li>
             ))}

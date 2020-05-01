@@ -47,10 +47,6 @@ class Movies extends Component {
         }
     }
 
-    movieCount() {
-        let length = this.state.movies.length;
-        return length > 0 ? <p>Showing {length} movies in the database</p> : <p>There are no movies in the database</p>;
-    }
 
     handleLiked = movie => {
         const movies = [...this.state.movies];
@@ -76,10 +72,8 @@ class Movies extends Component {
         this.setState({sortColumn})
     }
 
-
-    render() {
-        const {itemPerPage, currentPage, movies: allMovies, genres, selectedGenre, sortColumn} = this.state;
-
+    getPageData = () => {
+        const {itemPerPage, currentPage, movies: allMovies, selectedGenre, sortColumn} = this.state;
         const filteredMovies = selectedGenre && selectedGenre._id
             ? allMovies.filter(movie => movie.genre._id === selectedGenre._id)
             : allMovies;
@@ -87,6 +81,13 @@ class Movies extends Component {
         const sortedMovies = _.orderBy(filteredMovies, [sortColumn.path], [sortColumn.order])
 
         const movies = paginate(sortedMovies, currentPage, itemPerPage)
+        return {data: movies, totalCount: filteredMovies.length}
+    }
+
+    render() {
+        const {itemPerPage, currentPage, genres, selectedGenre, sortColumn} = this.state;
+        const {data: movies, totalCount} = this.getPageData();
+
         return (
             <>
                 <ToastContainer/>
@@ -100,7 +101,7 @@ class Movies extends Component {
                             />
                         </div>
                         <div className="col">
-                            {this.movieCount()}
+                            Showing {totalCount} movies in the database
 
                             <MoviesTable
                                 movies={movies}
@@ -111,15 +112,13 @@ class Movies extends Component {
                             />
                             <PaginationButton
                                 itemPerPage={itemPerPage}
-                                totalItem={filteredMovies.length}
+                                totalItem={totalCount}
                                 currentPage={currentPage}
                                 onPageChange={this.handlePagination}
                             />
                         </div>
                     </div>
                 </div>
-
-
             </>
         );
     }

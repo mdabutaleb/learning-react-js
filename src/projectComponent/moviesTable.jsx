@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
-import { NavLink} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 import Liked from "./liked";
 import auth from "../services/authServices";
-import TableHeader from "./common/tableHeader";
-import TableBody from "./common/tableBody";
+import Table from "./common/table";
+
 
 const URL = process.env.REACT_APP_PUBLIC_URL
 
@@ -20,7 +20,8 @@ class MoviesTable extends Component {
         },
         {
             key: 'delete',
-            content: movie => <button onClick={() => this.props.onDelete(movie._id)} className="btn btn-danger">Delete</button>
+            content: movie => <button onClick={() => this.props.onDelete(movie._id)}
+                                      className="btn btn-danger">Delete</button>
         },
     ]
 
@@ -36,11 +37,8 @@ class MoviesTable extends Component {
                         <button className="btn btn-primary btn-sm">Add New</button>
                     </NavLink>)
                 }
+                <Table sortColumn={sortColumn} onSort={onSort} data={movies} columns={this.columns}/>
 
-                <table className="table">
-                    <TableHeader sortColumn={sortColumn} onSort={onSort} columns={this.columns}/>
-                    <TableBody data={movies} columns={this.columns}/>
-                </table>
             </>
         );
     }
