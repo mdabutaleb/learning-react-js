@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.css'
 import Increments from "./projectComponent/increments";
-import Increment from "./projectComponent/increment";
 import FunctionalIncrement from "./useState/functionalIncrement";
 
 class IncrementApp extends Component {

@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
+import React from 'react';
 
 function withTollTips(Component) {
-    return class WithTollTIps extends Component {
+    return class WithTollTIps extends React.Component {
         state = {
             showTollTip: false
         }
