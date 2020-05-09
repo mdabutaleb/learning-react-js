@@ -6,6 +6,8 @@ import {toast, ToastContainer} from "react-toastify";
 import ListGroup from "./common/listGroup";
 import MoviesTable from "./moviesTable";
 import _ from 'lodash';
+import {NavLink} from "react-router-dom";
+import auth from "../services/authServices";
 
 class Movies extends Component {
     constructor(props) {
@@ -13,7 +15,8 @@ class Movies extends Component {
         this.state = {
             movies: [],
             genres: [],
-            selectedGenre: "",
+            selectedGenre: null,
+            searchQuery: "",
             itemPerPage: 4,
             totalItem: 10,
             currentPage: 1,
@@ -64,8 +67,8 @@ class Movies extends Component {
         })
     }
 
-    handleSelected = (genre) => {
-        this.setState({selectedGenre: genre, currentPage: 1})
+    handleGenreSelect = (genre) => {
+        this.setState({selectedGenre: genre, searchQuery: "", currentPage: 1})
     }
 
     handleSort = sortColumn => {
@@ -73,10 +76,16 @@ class Movies extends Component {
     }
 
     getPageData = () => {
-        const {itemPerPage, currentPage, movies: allMovies, selectedGenre, sortColumn} = this.state;
-        const filteredMovies = selectedGenre && selectedGenre._id
-            ? allMovies.filter(movie => movie.genre._id === selectedGenre._id)
-            : allMovies;
+        const {itemPerPage, currentPage, movies: allMovies, selectedGenre, sortColumn, searchQuery} = this.state;
+        console.log(searchQuery);
+        let filteredMovies = allMovies;
+        if (searchQuery)
+            filteredMovies = allMovies.filter(movie =>
+                movie.title.toLowerCase().startsWith(searchQuery.toLowerCase())
+            );
+        else if (selectedGenre && selectedGenre._id)
+            filteredMovies = allMovies.filter(movie => movie.genre._id === selectedGenre._id)
+
 
         const sortedMovies = _.orderBy(filteredMovies, [sortColumn.path], [sortColumn.order])
 
@@ -84,10 +93,14 @@ class Movies extends Component {
         return {data: movies, totalCount: filteredMovies.length}
     }
 
-    render() {
-        const {itemPerPage, currentPage, genres, selectedGenre, sortColumn} = this.state;
-        const {data: movies, totalCount} = this.getPageData();
+    handleSearch = query => {
+        this.setState({searchQuery: query, selectedGenre: null, currentPage: 1})
+    }
 
+    render() {
+        const {itemPerPage, currentPage, genres, selectedGenre, sortColumn, searchQuery} = this.state;
+        const {data: movies, totalCount} = this.getPageData();
+        const user = auth.getCurrentUser();
         return (
             <>
                 <ToastContainer/>
@@ -96,13 +109,20 @@ class Movies extends Component {
                         <div className="col-3">
                             <ListGroup
                                 genres={genres}
-                                handleSelected={this.handleSelected}
+                                handleSelected={this.handleGenreSelect}
                                 selectedItem={selectedGenre}
                             />
                         </div>
                         <div className="col">
                             Showing {totalCount} movies in the database
-
+                            {(user.isAdmin) && (
+                                <NavLink className="nav-link px-0" to={`${URL}/movies/create`}>
+                                    <button className="btn btn-primary btn-sm">Add New</button>
+                                </NavLink>)
+                            }
+                            <input onChange={e => this.handleSearch(e.target.value)} value={searchQuery}
+                                   className="form-control my-3 px-3" type="text"
+                                   placeholder="Search..."/>
                             <MoviesTable
                                 movies={movies}
                                 sortColumn={sortColumn}

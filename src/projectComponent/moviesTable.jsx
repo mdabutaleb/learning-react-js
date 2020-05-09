@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {NavLink} from "react-router-dom";
 import Liked from "./liked";
-import auth from "../services/authServices";
 import Table from "./common/table";
 
 
@@ -36,18 +35,9 @@ class MoviesTable extends Component {
 
     render() {
         const {movies, onSort, sortColumn} = this.props;
-        const user = auth.getCurrentUser();
 
         return (
-            <>
-                {(user.isAdmin) && (
-                    <NavLink className="nav-link" to={`${URL}/movies/create`}>
-                        <button className="btn btn-primary btn-sm">Add New</button>
-                    </NavLink>)
-                }
                 <Table sortColumn={sortColumn} onSort={onSort} data={movies} columns={this.columns}/>
-
-            </>
         );
     }
 }
