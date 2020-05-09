@@ -5,12 +5,12 @@ class Increment extends Component {
     render() {
         const { onDelete, counter, onIncrement, onDecrement} = this.props;
         return (
-            <div>
-                <div className="row">
-                    <div className="col-sm-1">
+            <div className="row">
+
+                    <div className="col-sm-4">
                         <span className={this.getBadgesClasses(counter)}>{this.getTotal(counter)}</span>
                     </div>
-                    <div className="col-md-2">
+                    <div className="col-md-8">
 
                         <button className="btn btn-secondary btn-sm m-1 "
                                 onClick={() => onIncrement(counter)}> +
@@ -24,9 +24,6 @@ class Increment extends Component {
                                 onClick={() => onDelete(counter.id)}> X
                         </button>
                     </div>
-
-                </div>
-
 
             </div>
         );

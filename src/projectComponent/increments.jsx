@@ -4,10 +4,10 @@ import Increment from "./increment";
 class Increments extends Component {
 
     render() {
-        console.log('Increments rendering')
+        // console.log('Increments rendering')
         const {onReset, onDelete, counters, onIncrement, onDecrement} = this.props;
         return (
-            <div>
+            <>
                 <button className="btn btn-secondary btn-sm m-2" onClick={onReset}>Reset</button>
                 {
                     counters.map(counter => (
@@ -23,7 +23,7 @@ class Increments extends Component {
                         )
                     )
                 }
-            </div>
+            </>
         );
     }
 }

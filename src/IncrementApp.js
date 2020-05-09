@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.css'
 import Increments from "./projectComponent/increments";
+import Increment from "./projectComponent/increment";
+import FunctionalIncrement from "./useState/functionalIncrement";
 
 class IncrementApp extends Component {
 
@@ -66,17 +68,45 @@ class IncrementApp extends Component {
 
 
     render() {
-
+        // const {onDelete, onIncrement, onDecrement} = this.state
         return (
             <React.Fragment>
                 <div className="container">
-                    <Increments
-                        counters={this.state.counters}
-                        onIncrement={this.handleIncrement}
-                        onReset={this.handleReset}
-                        onDelete={this.handleDelete}
-                        onDecrement={this.handleDecrement}
-                    />
+
+                    <div className="row">
+                        <div className="col-md-4">
+                            <Increments
+                                counters={this.state.counters}
+                                onIncrement={this.handleIncrement}
+                                onReset={this.handleReset}
+                                onDelete={this.handleDelete}
+                                onDecrement={this.handleDecrement}
+                            />
+                        </div>
+                        <div className="col-md-4">
+                            <FunctionalIncrement/>
+                        </div>
+
+                    </div>
+
+
+                    {/*<div>*/}
+                    {/*    <button className="btn btn-secondary btn-sm m-2" onClick={this.handleReset}>Reset</button>*/}
+                    {/*    {*/}
+                    {/*        this.state.counters.map(counter => (*/}
+                    {/*                <Increment*/}
+                    {/*                    key={counter.id}*/}
+                    {/*                    counter={counter}*/}
+                    {/*                    onDelete={this.handleDelete}*/}
+                    {/*                    onIncrement={this.handleIncrement}*/}
+                    {/*                    onDecrement={this.handleDecrement}*/}
+                    {/*                >*/}
+                    {/*                </Increment>*/}
+
+                    {/*            )*/}
+                    {/*        )*/}
+                    {/*    }*/}
+                    {/*</div>*/}
                 </div>
             </React.Fragment>
         );
