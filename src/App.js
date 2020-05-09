@@ -20,6 +20,8 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'font-awesome/css/font-awesome.css'
 import ProtectedRoute from "./projectComponent/common/ProtectedRoute";
 
+import Message from "./hoc/message";
+
 
 const URL = process.env.REACT_APP_PUBLIC_URL
 
@@ -54,7 +56,8 @@ class App extends Component {
 
                     <ProtectedRoute path={`${URL}/movies`} render={(props) => <Movies {...props}/>}/>
                     <ProtectedRoute path={`${URL}/increment-app`} component={IncrementApp}/>
-                    <Redirect from={`${URL}/test`} to="movies"/>
+                    <ProtectedRoute path={`${URL}/tolltips`} component={Message}/>
+
                     <Route path={`${URL}/404`} component={NotFound}/>
                     <ProtectedRoute path={`${URL}/`} exact component={Home}/>
                     <ProtectedRoute path={`${URL}/hr`} exact component={Home}/>
