@@ -8,6 +8,7 @@ import MoviesTable from "./moviesTable";
 import _ from 'lodash';
 import {NavLink} from "react-router-dom";
 import auth from "../services/authServices";
+import SearchBox from "./common/searchBox";
 
 class Movies extends Component {
     constructor(props) {
@@ -77,7 +78,6 @@ class Movies extends Component {
 
     getPageData = () => {
         const {itemPerPage, currentPage, movies: allMovies, selectedGenre, sortColumn, searchQuery} = this.state;
-        console.log(searchQuery);
         let filteredMovies = allMovies;
         if (searchQuery)
             filteredMovies = allMovies.filter(movie =>
@@ -120,9 +120,7 @@ class Movies extends Component {
                                     <button className="btn btn-primary btn-sm">Add New</button>
                                 </NavLink>)
                             }
-                            <input onChange={e => this.handleSearch(e.target.value)} value={searchQuery}
-                                   className="form-control my-3 px-3" type="text"
-                                   placeholder="Search..."/>
+                            <SearchBox value={searchQuery} handleSearch={this.handleSearch}/>
                             <MoviesTable
                                 movies={movies}
                                 sortColumn={sortColumn}
