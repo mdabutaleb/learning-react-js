@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.css'
 import Increments from "./projectComponent/increments";
-import FunctionalIncrement from "./useState/functionalIncrement";
+import FunctionalIncrement from "./hooks/functionalIncrement";
+
 
 class IncrementApp extends Component {
 
@@ -83,7 +84,7 @@ class IncrementApp extends Component {
                             />
                         </div>
                         <div className="col-md-4">
-                            <FunctionalIncrement/>
+                           <FunctionalIncrement/>
                         </div>
 
                     </div>

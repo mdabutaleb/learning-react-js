@@ -1,16 +1,10 @@
-import React, {useState, useEffect} from 'react';
-
+import React, {useState} from 'react';
+import useDocumentTitle from './useDocumentTitle'
 const FunctionalIncrement = () => {
     const [count, setCount] = useState(0)
     const [name, setName] = useState("")
 
-    useEffect(() => {
-        document.title = `${name} has click ${count} times`;
-
-        return () => {
-            console.log('clean up!');
-        }
-    })
+    useDocumentTitle(`${name} has clicked ${count} times`)
     return (
         <div>
             <p>
