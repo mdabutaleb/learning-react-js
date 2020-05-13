@@ -10,7 +10,15 @@ import UserContext from "../../context/userContext";
 
 class Dashboard extends Component {
     state = {
-        currentUser: {name: "Sumon"}
+        currentUser: {name: null}
+    }
+
+    handleName = username => {
+        const currentUser = {name: 'Sumon'}
+        // this.setState({currentUser})
+        this.setState({
+            currentUser
+        })
     }
 
     render() {
@@ -26,8 +34,13 @@ class Dashboard extends Component {
                         <Switch>>
                             <Route path="/admin/users" component={Users}/>
                             <Route path="/admin/employee" component={employee}/>
-                            <UserContext.Provider value={this.state.currentUser}>
+                            <UserContext.Provider value={
+                                {
+                                    currentUser: this.state.currentUser,
+                                    onHandle: this.handleName
+                                }}>
                                 <Route path="/admin/categories" component={CategoryPage}/>
+
                             </UserContext.Provider>
 
                             <Route path="/admin/posts" component={Posts}/>

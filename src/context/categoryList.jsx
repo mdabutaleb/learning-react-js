@@ -13,8 +13,9 @@ class CategoryList extends Component {
         return (
             <UserContext.Consumer>
                 {UserContext => (
-                    <div> Category List | {UserContext.name}
+                    <div> Category List | {UserContext.currentUser ? UserContext.currentUser.name : ''}
                         <CategoryRow/>
+
                     </div>
                 )}
 

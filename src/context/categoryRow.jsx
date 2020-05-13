@@ -1,11 +1,14 @@
 import React, {useContext} from 'react';
 import UserContext from "./userContext";
+
 const CategoryRow = () => {
-    const currentUser = useContext(UserContext)
-    console.log(currentUser);
+    const userContext = useContext(UserContext)
+    // console.log(currentUser);
     return (
         <div>
-            Row
+            Row |
+            {userContext ? userContext.currentUser.name : ""}
+            <br/>
         </div>
     );
 }
