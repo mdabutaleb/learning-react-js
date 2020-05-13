@@ -8,6 +8,7 @@ const Sidebar = () => {
                 <Link to="/admin/users" className="list-group-item list-group-item-action">Users</Link>
                 <Link to="/admin/employee" className="list-group-item list-group-item-action">Employee</Link>
                 <Link to="/admin/posts" className="list-group-item list-group-item-action">Posts</Link>
+                <Link to="/admin/categories" className="list-group-item list-group-item-action">Categories</Link>
             </div>
         </div>
     );

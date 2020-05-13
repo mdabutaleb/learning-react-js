@@ -12,7 +12,7 @@ export default function Employee() {
             const movies = await http.get(apiEndPoint + '/movies');
             setMovies(movies.data)
 
-            const genres = await http.get(apiEndPoint + '/movies');
+            const genres = await http.get(apiEndPoint + '/genres');
             setGenres(genres.data)
         }
 
@@ -28,7 +28,7 @@ export default function Employee() {
             {/*{users.map(user => <li key={user.id}>{user.name}</li>)}*/}
             {movies.map(movie => <li key={movie._id}>{movie.title}</li>)}
             <h2>Genre is: </h2>
-            {genres.map(genre => <li key={genre._id}>{genre.title}</li>)}
+            {genres.map(genre => <li key={genre._id}>{genre.name}</li>)}
 
 
         </div>

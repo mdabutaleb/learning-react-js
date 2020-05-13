@@ -5,8 +5,15 @@ import Users from "./users/users";
 import Posts from "./posts/posts";
 import {ToastContainer} from "react-toastify";
 import employee from "../../hooks/employee";
+import CategoryPage from "../../context/categoryPage";
+import userContext from '../../context/userContext';
+import UserContext from "../../context/userContext";
 
 class Dashboard extends Component {
+    state = {
+        currentUser: {name: "Sumon"}
+    }
+
     render() {
         return (
             <>
@@ -20,6 +27,10 @@ class Dashboard extends Component {
                         <Switch>>
                             <Route path="/admin/users" component={Users}/>
                             <Route path="/admin/employee" component={employee}/>
+                            <UserContext.Provider value={this.state.currentUser}>
+                                <Route path="/admin/categories" component={CategoryPage}/>
+                            </UserContext.Provider>
+
                             <Route path="/admin/posts" component={Posts}/>
                         </Switch>
                     </div>
