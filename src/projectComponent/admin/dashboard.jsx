@@ -4,6 +4,7 @@ import {Route, Switch} from "react-router-dom";
 import Users from "./users/users";
 import Posts from "./posts/posts";
 import {ToastContainer} from "react-toastify";
+import employee from "../../hooks/employee";
 
 class Dashboard extends Component {
     render() {
@@ -18,6 +19,7 @@ class Dashboard extends Component {
                     <div className="col-md-9">
                         <Switch>>
                             <Route path="/admin/users" component={Users}/>
+                            <Route path="/admin/employee" component={employee}/>
                             <Route path="/admin/posts" component={Posts}/>
                         </Switch>
                     </div>
