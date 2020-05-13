@@ -6,7 +6,6 @@ import Posts from "./posts/posts";
 import {ToastContainer} from "react-toastify";
 import employee from "../../hooks/employee";
 import CategoryPage from "../../context/categoryPage";
-import userContext from '../../context/userContext';
 import UserContext from "../../context/userContext";
 
 class Dashboard extends Component {
